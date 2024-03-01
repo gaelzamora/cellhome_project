@@ -4,12 +4,10 @@ import { useEffect } from "react"
 import toast from "react-hot-toast"
 import { useInView } from "react-intersection-observer"
 
-import FeaturesSlider from "../components/FeaturesSlider"
-import HelpSlider from "../components/HelpSlider"
-
+import Slider from "../components/Slider"
 import iconSupport from '../assets/support.jpg'
 
-
+import { banners } from "../ts/data"
 import { categories } from "../ts/data"
 
 import { Link } from "react-router-dom"
@@ -17,7 +15,7 @@ import { Link } from "react-router-dom"
 
 function StorePage() {
 
-  const {ref, inView} = useInView()
+  const {inView} = useInView()
   
   useEffect(() => {
     if(inView){
@@ -26,12 +24,8 @@ function StorePage() {
   }, [inView])
   
   const {
-    data,
-    isLoading,
     error,
-    isFetchingNextPage,
     fetchNextPage,
-    hasNextPage
   } = useInfiniteQuery(['products'], get_products, {
     getNextPageParam: (page: any) => page.meta.next,
   })
@@ -45,7 +39,7 @@ function StorePage() {
             <p className="text-gray-500 tracking-tighter text-[3em] font-bold"><span className="text-black">Store.</span> The best way to buy the
             products you love.</p>
           </div>
-          <div className="lg:absolute gap-3 z-10 right-0 lg:top-24">
+          <div className="lg:absolute gap-3 z-10 right-0 lg:top-24 md:flex-col">
             <div className="flex gap-3">
               <img src={iconSupport} className="w-9 h-9 mt-2"/>
               <div className="mb-2">
@@ -72,17 +66,18 @@ function StorePage() {
           </Link>
         ))}
       </section>
-      <section className="mt-16">
+      <section className="mt-20">
           <p className="text-gray-500 font-bold text-[1.7em]"><span className="text-black">The latest.</span> Take a look at what's new, right now.</p>
-          <div className="m-auto">
-            <FeaturesSlider />
+          <div className="overflow-x-hidden">
+            <div className="sticky top-0 z-50 pb-4 ">
+              <Slider items={banners} />
+            </div>
           </div>
       </section>
 
       <section className="mt-16 ">
         <p className="text-gray-500 font-bold text-[1.7em]"><span className="text-black">Help is here.</span> Whenever and however you need it.</p>
         <div className="m-auto ">
-            <HelpSlider />
         </div>
       </section>
     </div>

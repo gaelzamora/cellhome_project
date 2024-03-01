@@ -19,3 +19,11 @@ export interface Token {
     last_name: string
     avatar: string
 }
+
+export interface Item {
+    product: string
+    title: string
+    description: string
+    img: string
+    isColor?: boolean
+}

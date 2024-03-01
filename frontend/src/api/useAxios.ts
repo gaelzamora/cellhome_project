@@ -8,7 +8,7 @@ function logout() {
     window.location.href = '../accounts/login'
 }
 
-const baseURL = import.meta.env.VITE_BACKEND_URL
+export const baseURL = import.meta.env.VITE_BACKEND_URL
 
 export const axi = axios.create({
     baseURL

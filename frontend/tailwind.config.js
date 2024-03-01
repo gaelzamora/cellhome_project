@@ -1,3 +1,5 @@
+import colors from 'tailwindcss/colors'
+
 /** @type {import('tailwindcss').Config} */
 export default {
   darkMode: "class",
@@ -16,6 +18,14 @@ export default {
         "very-dark-blue": "hsl(233, 12%, 13%)",
         "very-pale-red": "hsl(13,100%, 96%)",
         "vary-light-gray": "hsl(0,0%,98%)",
+        secondary: {
+          DEFAULT: colors.neutral[200],
+          hover: colors.neutral[300],
+          border: colors.neutral[400],
+          text: colors.neutral[500],
+          dark: colors.neutral[800],
+          ["dark-hover"]: colors.neutral[900]
+        }
       },
       backgroundImage: {
         "close-menu": "url('./src/images/icon-close.svg')",

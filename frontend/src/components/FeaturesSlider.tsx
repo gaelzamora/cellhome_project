@@ -35,7 +35,7 @@ function FeaturesSlider() {
                 navigation={{
                     enabled: true
                 }}
-                className='max-w-full'
+                className='max-w-full'  
             >
                 {banners.map((item, i) => (
                     <SwiperSlide key={item.title}>

@@ -5,7 +5,6 @@ import bgAppleWatchs from '../assets/applewatchs.jpeg'
 
 import { Link } from 'react-router-dom'
 import {Typewriter} from 'react-simple-typewriter'
-import { HiColorSwatch } from 'react-icons/hi'
 
 function HomePage() {
 
