@@ -7,7 +7,7 @@ import toast from 'react-hot-toast'
 import { useAuthStore } from '../store/auth'
 import { Token } from '../Interfaces'
 import jwt_decode from 'jwt-decode'
-import { Loader } from '../components/Loader'
+import {TailSpin} from 'react-loader-spinner'
 
 function LoginPage() {
 
@@ -38,7 +38,6 @@ function LoginPage() {
     loginMutation.mutate()
   }
 
-  if(loginMutation.isLoading) return <Loader />
   if(isAuth) return (<Navigate to=  '/' />)
 
   return (
@@ -85,18 +84,22 @@ function LoginPage() {
           </div>
 
           <div>
+            
             <button type="submit" className="flex w-full justify-center rounded-md bg-gray-800 transition-all px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-gray-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
-              {loginMutation.isLoading && (
-                <>
-                  Iniciar sesión
-                </>
-              ):(
-                <>
-                  <div className="text-center">
-                    {''}
+                {loginMutation.isLoading? (
+                  <div>
+                    <TailSpin
+                      width={25}
+                      height={25}
+                      color='white'
+                    />  
                   </div>
-                </>
-              )}
+                ):(
+                  <>
+                    Iniciar Sesion
+                  </>
+                )}
+                
             </button>
           </div>
         </form>
