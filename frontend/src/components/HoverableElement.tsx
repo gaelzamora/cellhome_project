@@ -4,6 +4,7 @@ import HoverComponent from "./HoverComponent"
 type hoverProps = {
     id: number
     children: string
+
 }
 
 export const HoverableElement = ({id, children}: hoverProps) => {
@@ -26,7 +27,6 @@ export const HoverableElement = ({id, children}: hoverProps) => {
         >
             {children}
             {isHover && <HoverComponent id={id} />}
-
         </div>
     )
 }

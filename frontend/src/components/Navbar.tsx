@@ -14,22 +14,24 @@ import {Token} from '../Interfaces';
 import {HoverableElement} from './HoverableElement'
 import { iphone, store } from '../ts/data'
 
+
 function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [openSearch, setOpenSearch] = useState(false)
   const token: string = useAuthStore.getState().access
   const {isAuth} = useAuthStore()
 
-  const [isHover, setIsHover] = useState(false)  
+  /*const [isHover, setIsHover] = useState(false)  
   
-  type newStateProps = {
-    newState: any
-  }
 
-  const handleSetHover = (newState): newStateProps => {
+  function handleSetHover(newState: boolean) {
     setIsHover(newState)
   }
 
+  handleSetHover(true)
+
+  console.log(isHover)
+  */
   let is_admin: boolean
   is_admin = false
 
