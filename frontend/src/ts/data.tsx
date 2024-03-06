@@ -40,6 +40,7 @@ export const helpBanners = [
   {type: "Today at apple", title: "Join free sessions at your Apple Store.", description: "Learn about the latest features and how to go further with your Apple devices.", isColor: true, img: bgToday}
 ]
 
+
 export const iphone = [
   { name: 'Ver todos los modelos', href: '#'},
   { name: 'iPhone 15 Pro', href: '#'},
@@ -49,6 +50,7 @@ export const iphone = [
 ]
 
 export const store = [
+  { name: 'Shop'},
   { name: 'Ver lo ultimo', href: '/store'},
   { name: 'AppleWatch', href: '#'},
   { name: 'iPhone', href: '#' },

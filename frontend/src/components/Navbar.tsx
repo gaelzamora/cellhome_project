@@ -14,6 +14,14 @@ import {Token} from '../Interfaces';
 import {HoverableElement} from './HoverableElement'
 import { iphone, store } from '../ts/data'
 
+const navbarElements = [
+  {name: 'Tienda', to:'/store', id: 0},
+  {name: 'iPhone', to:'/', id:1},
+  {name: 'AppleWatch', to:'/', id:2},
+  {name: 'AirPods', to:'/', id:3},
+  {name: 'Mac', to:'/', id:4},
+  {name: 'Accesorios', to:'/', id:5},
+]
 
 function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -21,17 +29,7 @@ function Navbar() {
   const token: string = useAuthStore.getState().access
   const {isAuth} = useAuthStore()
 
-  /*const [isHover, setIsHover] = useState(false)  
-  
 
-  function handleSetHover(newState: boolean) {
-    setIsHover(newState)
-  }
-
-  handleSetHover(true)
-
-  console.log(isHover)
-  */
   let is_admin: boolean
   is_admin = false
 
@@ -55,8 +53,8 @@ function Navbar() {
   }
 
   return (
-    <>
-      <header className="w-full fixed top-0 bg-[#f5f5f7] z-40 dark:bg-gray-300">
+    <div className='relative'>
+      <header className="w-full fixed top-0 bg-[#f5f5f7] z-40 dark:bg-gray-300 ">
         <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8 h-10 w-full" aria-label="Global">
           <div className="flex lg:flex-1">
             <Link to='/' className="-m-1.5 p-1.5">
@@ -81,38 +79,15 @@ function Navbar() {
             </button>
           </div>
           <div className='hidden md:flex gap-x-12'>
-            <Link to='/store' className='text-xs text-gray-500 font-bold leading-6 p-1'>
-              <HoverableElement id={1}>
-                Tienda
-              </HoverableElement>
-            </Link>
-            <Link to='/' className='text-xs text-gray-500 font-bold leading-6 p-1' >
-              <HoverableElement id={2}>
-                iPhone
-              </HoverableElement>
-            </Link>  
-            <Link to='/' className='text-xs text-gray-500 font-bold leading-6 p-1'>
-              <HoverableElement id={3}>
-                AppleWatch
-              </HoverableElement>
-            </Link>  
-            <Link to='/' className='text-xs text-gray-500 font-bold leading-6 p-1'>
-              <HoverableElement id={4}>
-                AirPods
-              </HoverableElement>
-            </Link>  
-            <Link to='/' className='text-xs text-gray-500 font-bold leading-6 p-1'>
-              <HoverableElement id={5}>
-              Mac
-              </HoverableElement>
-            </Link>
-            <Link to='/' className='text-xs text-gray-500 font-bold leading-6 p-1'>
-              <HoverableElement id={6}>
-                Accesorios
-              </HoverableElement>
-            </Link> 
+            {navbarElements.map((element: any) => (
+              <Link to={element.to} className='text-xs text-gray-500 font-bold leading-6 p-1'>
+                <HoverableElement id={element.id}>
+                  {element.name}
+                </HoverableElement>
+              </Link>
+            ))}         
           </div> 
-          
+    
           <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:gap-3">
             <div className='flex'>
               <button
@@ -230,7 +205,7 @@ function Navbar() {
                           />
                         </Disclosure.Button>
                         <Disclosure.Panel className="mt-2 space-y-2">
-                          {[...store].map((item) => (
+                          {store.map((item) => (
                             <Disclosure.Button
                               key={item.name}
                               as="a"
@@ -315,7 +290,7 @@ function Navbar() {
         </Dialog>
       </header>
 
-    </>
+    </div>
   )
 }
 

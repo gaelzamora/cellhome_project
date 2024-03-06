@@ -11,12 +11,10 @@ export const HoverableElement = ({id, children}: hoverProps) => {
     const [isHover, setIsHover] = useState(false)
 
     const handleMouseEnter = () => {
-        console.log("El mouse entro: ", id)
         setIsHover(true)
     }
 
     const handleMouseLeave = () => {
-        console.log("El mouse se fue", id)
         setIsHover(false)
     }
 
