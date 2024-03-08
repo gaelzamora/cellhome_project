@@ -8,19 +8,19 @@ type ItemProps = {
     color?: boolean
 }   
 
-function Card({product, title, description, image, color}: ItemProps) {
+function Card({product, title, description, image}: ItemProps) {
 
     const [showLetter, setShowLetter] = useState(false)
 
 
     return (
-        <div className="relative" >
+        <div className="" >
             <div
-                className="absolute" 
+                className="" 
                 style={{backgroundImage: `url(${image})`}}
             />
 
-            <div className="relative">
+            <div className="">
                 <p>{product}</p>
                 <p>{title}</p>
                 <p>{description}</p>

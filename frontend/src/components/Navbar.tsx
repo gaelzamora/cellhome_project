@@ -16,21 +16,21 @@ import {HoverableElement} from './HoverableElement'
 const navbarElements = [
   {name: 'Tienda', to:'/store', id: 0},
   {name: 'iPhone', to:'/', id:1},
-  {name: 'AppleWatch', to:'/', id:2},
-  {name: 'AirPods', to:'/', id:3},
-  {name: 'Mac', to:'/', id:4},
-  {name: 'Accesorios', to:'/', id:5},
+  {name: 'Watch', to:'/', id:2},
+  {name: 'iPad', to:'/', id:3},
+  {name: 'AirPods', to:'/', id:4},
+  {name: 'Mac', to:'/', id:5},
+  {name: 'Accesorios', to:'/', id:6},
+  {name: 'Support', to:'/', id:7},
 ]
 
 function Navbar() {
+
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [openSearch, setOpenSearch] = useState(false)
   const token: string = useAuthStore.getState().access
   const {isAuth} = useAuthStore()
   const [viewDropDown, setViewDropDown] = useState(false)
-
-  
-
 
   let is_admin: boolean
   is_admin = false
@@ -40,11 +40,14 @@ function Navbar() {
     is_admin = tokenDecoded.is_staff
   }
 
+  const receiveState = (state: boolean) => {
+    setViewDropDown(state)
+  }
+
   function logOutFun() {
     useAuthStore.getState().logout()
     window.location.href = '/accounts/login'
   }
-
 
   function classNames(...classes: any){
     return classes.filter(Boolean).join(' ')
@@ -52,8 +55,8 @@ function Navbar() {
 
   return (
     <div className='relative'>
-      <header className="w-full fixed top-0 bg-[#f5f5f7] z-40 dark:bg-gray-300 ">
-        <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8 h-10 w-full" aria-label="Global">
+      <header className={`w-full fixed top-0 ${viewDropDown ? 'bg-[#161617]' : 'bg-[#434344]'} z-40 dark:bg-gray-300 `}>
+        <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8 h-8 w-full" aria-label="Global">
           <div className="flex lg:flex-1">
             <Link to='/' className="-m-1.5 p-1.5">
               <span className="sr-only">Your Company</span>
@@ -62,8 +65,8 @@ function Navbar() {
           </div>
           <div className='flex lg:hidden'>
             <form action="">
-              <HiSearch className="h-5 w-5 absolute top-3.5 ml-2 text-gray-400" aria-hi="true" />
-              <input type="search" className='w-full rounded-full outline-blue-950 px-9 py-2 text-sm ralative focus:border-gray-400' placeholder='Buscar...'/>
+              <HiSearch className="h-5 w-5 absolute top-3.5 ml-2 text-gray-100" aria-hi="true" />
+              <input type="search" className='w-full rounded-full outline-blue-950 px-9 py-2 text-sm ralative focus:border-gray-100' placeholder='Buscar...'/>
             </form>
           </div>
           <div className="flex lg:hidden">
@@ -73,13 +76,13 @@ function Navbar() {
               onClick={() => setMobileMenuOpen(true)}
             >
               <span className="sr-only">Open main menu</span>
-              <Bars3Icon className="h-6 w-6" aria-hi="true" />
+              <Bars3Icon className="h-6 w-6 text-white" aria-hi="true" />
             </button>
           </div>
           <div className='hidden md:flex gap-x-12'>
             {navbarElements.map((element: any) => (
-              <Link to={element.to} className='text-xs text-gray-500 font-bold leading-6 p-1'>
-                <HoverableElement id={element.id}>
+              <Link to={element.to} className='text-[10px] text-gray-300 font-bold leading-6 p-1'>
+                <HoverableElement id={element.id} setViewDropDown={receiveState} >
                   {element.name}
                 </HoverableElement>
               </Link>
@@ -94,13 +97,13 @@ function Navbar() {
                 onClick={() => setOpenSearch(true)}
               >
                 <span className="sr-only">Open main menu</span>
-                <HiSearch className="h-[1.2rem] w-[1.2rem]" aria-hi="true"/>
+                <HiSearch className="h-[1.2rem] w-[1.2rem] text-gray-100" aria-hi="true"/>
               </button>
             </div>
             
             <Menu as="div" className="relative ml-2">
                 <div>
-                  <Menu.Button className="text-slate-700 hover:text-black dark:text-slate-200 dark:hover:text-white">
+                  <Menu.Button className="text-gray-100 hover:text-black dark:text-slate-200 dark:hover:text-white">
                     <HiOutlineShoppingBag size={18} />
                   </Menu.Button>
                 </div>
@@ -186,7 +189,7 @@ function Navbar() {
                 onClick={() => setMobileMenuOpen(false)}
               >
                 <span className="sr-only">Close menu</span>
-                <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+                <XMarkIcon className="h-6 w-6 text-white" aria-hidden="true" />
               </button>
             </div>
             <div className="mt-6 flow-root">

@@ -9,11 +9,11 @@ import {Typewriter} from 'react-simple-typewriter'
 function HomePage() {
 
   return (
-    <div className='z-1 overflow-x-hidden'>
+    <div className='z-50 overflow-x-hidden'>
       <section className='mx-auto text-center mb-14'>
         <Link to='/store' className='pb-0'>  
           <div
-          className='relative text-center inline-block cursor-pointer w-screen animate-fade-up animate-duration-1000 animate-delay-500'>
+          className='relative text-center cursor-pointer animate-fade-up animate-duration-1000 animate-delay-500'>
               <h1 className='text-4xl font-semibold tracking-tight sm:text-7xl absolute text-black top-72 w-screen text-center '>
                 Compra {' '}
                 <Typewriter 
@@ -27,7 +27,7 @@ function HomePage() {
                 />
               </h1>
             <img  
-            className="object-cover h-screen"
+            className="object-cover h-[700px]"
             src={bgAppleWhite} 
             alt="" 
             />

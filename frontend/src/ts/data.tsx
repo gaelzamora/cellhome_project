@@ -51,10 +51,18 @@ export const elements = [
     { name: 'Accesorios', href: '#' },
   ],
   [
+    { name: 'Explora todos los iPhone'},
     { name: 'Ver todos los modelos', href: '#'},
     { name: 'iPhone 15 Pro', href: '#'},
     { name: 'iPhone 15', href: '#' },
     { name: 'iPhone 13', href: '#' },
     { name: 'iPhone SE', href: '#' },
+  ],
+  [
+    { name: 'Ver AppleWatch'},
+    { name: 'Ver todos los AppleWatch', href: '#'},
+    { name: 'Apple Watch Series 9', href: '#'},
+    { name: 'Apple Watch Ultra ', href: '#'},
+    { name: 'Ver todos los AppleWatch', href: '#'},
   ]
 ]

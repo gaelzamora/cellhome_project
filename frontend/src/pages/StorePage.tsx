@@ -69,7 +69,7 @@ function StorePage() {
       <section className="mt-20">
           <p className="text-gray-500 font-bold text-[1.7em]"><span className="text-black">The latest.</span> Take a look at what's new, right now.</p>
           <div className="overflow-x-hidden">
-            <div className="sticky top-0 z-50 pb-4 ">
+            <div className="sticky top-0 pb-4 ">
               <Slider items={banners} />
             </div>
           </div>
