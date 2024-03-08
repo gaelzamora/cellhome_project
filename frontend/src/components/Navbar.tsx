@@ -12,7 +12,6 @@ import {
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import {Token} from '../Interfaces';
 import {HoverableElement} from './HoverableElement'
-import { iphone, store } from '../ts/data'
 
 const navbarElements = [
   {name: 'Tienda', to:'/store', id: 0},
@@ -28,14 +27,13 @@ function Navbar() {
   const [openSearch, setOpenSearch] = useState(false)
   const token: string = useAuthStore.getState().access
   const {isAuth} = useAuthStore()
+  const [viewDropDown, setViewDropDown] = useState(false)
+
+  
 
 
   let is_admin: boolean
   is_admin = false
-
-  if(openSearch) {
-    console.log("Hola aqui esta el buscador")
-  }
 
   if(isAuth){
     const tokenDecoded : Token = jwt_decode(token)

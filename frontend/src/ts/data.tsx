@@ -41,19 +41,20 @@ export const helpBanners = [
 ]
 
 
-export const iphone = [
-  { name: 'Ver todos los modelos', href: '#'},
-  { name: 'iPhone 15 Pro', href: '#'},
-  { name: 'iPhone 15', href: '#' },
-  { name: 'iPhone 13', href: '#' },
-  { name: 'iPhone SE', href: '#' },
-]
-
-export const store = [
-  { name: 'Shop'},
-  { name: 'Ver lo ultimo', href: '/store'},
-  { name: 'AppleWatch', href: '#'},
-  { name: 'iPhone', href: '#' },
-  { name: 'AirPods', href: '#' },
-  { name: 'Accesorios', href: '#' },
+export const elements = [
+  [
+    { name: 'Shop'},
+    { name: 'Ver lo ultimo', href: '/store'},
+    { name: 'AppleWatch', href: '#'},
+    { name: 'iPhone', href: '#' },
+    { name: 'AirPods', href: '#' },
+    { name: 'Accesorios', href: '#' },
+  ],
+  [
+    { name: 'Ver todos los modelos', href: '#'},
+    { name: 'iPhone 15 Pro', href: '#'},
+    { name: 'iPhone 15', href: '#' },
+    { name: 'iPhone 13', href: '#' },
+    { name: 'iPhone SE', href: '#' },
+  ]
 ]
