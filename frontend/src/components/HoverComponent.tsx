@@ -2,6 +2,8 @@ import { elements } from "../ts/data"
 
 type HoverProps = {
   id: number
+  setIsHover: (state: boolean) => void
+  setViewDropDown: (state: boolean) => void
 }
 
 type ElementProps = {
@@ -9,10 +11,11 @@ type ElementProps = {
   href?: string
 }
 
-function HoverComponent({id}: HoverProps) {
+function HoverComponent({id, setIsHover , setViewDropDown}: HoverProps) {
 
   const handleBlurHover = () => {
-    console.log("Quitando hover")
+    setViewDropDown(false)
+    setIsHover(false)
   }
 
   const data = elements[id]

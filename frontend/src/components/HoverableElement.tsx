@@ -27,7 +27,7 @@ export const HoverableElement = ({id, children, setViewDropDown}: hoverProps) =>
             onMouseLeave={handleMouseLeave}
         >
             {children}
-            {isHover && <HoverComponent id={id} />}
+            {isHover && <HoverComponent id={id} setIsHover={setIsHover} setViewDropDown={setViewDropDown} />}
         </div>
     )
 }
