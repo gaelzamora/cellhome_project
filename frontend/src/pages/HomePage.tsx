@@ -35,7 +35,7 @@ function HomePage() {
         </Link >
         <div
         className='relative animate-fade-up animate-duration-1000 animate-delay-500'>
-          <div className='absolute text-gray-200 p-10 w-screen text-center top-28 '>
+          <div className='absolute text-gray-200 p-10 w-screen text-center top-24 '>
             <p className='text-[4em] tracking-tighter'>iPhone 15 Pro</p>
             <p className='text-[2em] tracking-tighter'>Titanio. Tan resistente y ligero. Tan Pro.</p>
             <div className='flex gap-4 items-center justify-center mt-4'>
@@ -52,7 +52,7 @@ function HomePage() {
         <Link to='/store'>
           <div
             className='relative text-center inline-block cursor-pointer w-screen animate-fade-up animate-duration-1000 animate-delay-500'>
-            <div className='absolute text-gray-200 p-10 w-screen text-center top-28 '>
+            <div className='absolute text-gray-200 p-10 w-screen text-center top-16 '>
               <p className='text-[4em] tracking-tighter'>AirPods Pro</p>
               <p className='text-[2em] tracking-tighter'>Audio Adaptivo. Escucha la diferencia.</p>
               <div className='flex gap-4 items-center justify-center mt-4'>
@@ -70,9 +70,9 @@ function HomePage() {
         <Link to='/store'>
           <div
             className='relative text-center inline-block cursor-pointer w-screen animate-fade-up animate-duration-1000 animate-delay-500'>
-            <div className='absolute text-black p-10 w-screen text-center top-28 '>
+            <div className='absolute text-black p-10 w-screen text-center top-16 '>
               <p className='text-[4em] tracking-tighter'>AirPods Pro</p>
-              <p className='text-[2em] tracking-tighter'>Audio Adaptivo. Escucha ña diferencia.</p>
+              <p className='text-[2em] tracking-tighter'>Audio Adaptivo. Escucha la diferencia.</p>
               <div className='flex gap-4 items-center justify-center mt-4'>
                 <a href="" className='text-blue-500 hover:underline transition-all'>Más informacion{' >'}</a>
                 <a href="" className='text-blue-500 hover:underline transition-all'>Comprar{' >'}</a>

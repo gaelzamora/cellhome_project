@@ -5,9 +5,10 @@ type hoverProps = {
     id: number
     children: string
     setViewDropDown: (state: boolean) => void
+    setStillDropDown: (state: boolean) => void
 }
 
-export const HoverableElement = ({id, children, setViewDropDown}: hoverProps) => {
+export const HoverableElement = ({id, children, setViewDropDown, setStillDropDown}: hoverProps) => {
     const [isHover, setIsHover] = useState(false)
 
     const handleMouseEnter = () => {
@@ -27,7 +28,7 @@ export const HoverableElement = ({id, children, setViewDropDown}: hoverProps) =>
             onMouseLeave={handleMouseLeave}
         >
             {children}
-            {isHover && <HoverComponent id={id} setIsHover={setIsHover} setViewDropDown={setViewDropDown} />}
+            {isHover && <HoverComponent id={id} setIsHover={setIsHover} setViewDropDown={setViewDropDown} setStillDropDown={setStillDropDown} />}
         </div>
     )
 }

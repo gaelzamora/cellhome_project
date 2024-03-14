@@ -14,7 +14,7 @@ import {Token} from '../Interfaces';
 import {HoverableElement} from './HoverableElement'
 
 const navbarElements = [
-  {name: 'Tienda', to:'/store', id: 0},
+  {name: 'Store', to:'/store', id: 0},
   {name: 'iPhone', to:'/', id:1},
   {name: 'Watch', to:'/', id:2},
   {name: 'iPad', to:'/', id:3},
@@ -31,10 +31,15 @@ function Navbar() {
   const token: string = useAuthStore.getState().access
   const {isAuth} = useAuthStore()
   const [viewDropDown, setViewDropDown] = useState(false)
+  const [stillDropDown, setStillDropDown] = useState(false)
 
-  console.log(viewDropDown)
   let is_admin: boolean
   is_admin = false
+
+  const handleStillDropDown = () => {
+    setStillDropDown(true)
+  } 
+  console.log(stillDropDown)
 
   if(isAuth){
     const tokenDecoded : Token = jwt_decode(token)
@@ -56,8 +61,8 @@ function Navbar() {
 
   return (
     <div className='relative'>
-      <header className={`w-full fixed top-0 ${viewDropDown ? 'bg-[#161617]' : 'bg-[#434344]'} z-40 dark:bg-gray-300`} on>
-        <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8 h-8 w-full" aria-label="Global">
+      <header className={`w-full first-letter fixed top-0 ${viewDropDown ? 'bg-[#161617]' : 'bg-[#f5f5f7]'} z-40 dark:bg-gray-300`} onMouseEnter={handleStillDropDown}>
+        <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8 h-8 w-[60%]" aria-label="Global">
           <div className="flex lg:flex-1">
             <Link to='/' className="-m-1.5 p-1.5">
               <span className="sr-only">Your Company</span>
@@ -82,8 +87,8 @@ function Navbar() {
           </div>
           <div className='hidden md:flex gap-x-12'>
             {navbarElements.map((element: any) => (
-              <Link to={element.to} className='text-[10px] text-gray-300 font-bold leading-6 p-1'>
-                <HoverableElement id={element.id} setViewDropDown={receiveState} >
+              <Link to={element.to} className={`text-[11px] ${viewDropDown ? 'text-gray-200' : 'text-gray-700'}  font-semibold leading-loose p-1`}>
+                <HoverableElement id={element.id} setViewDropDown={receiveState} setStillDropDown={setStillDropDown}>
                   {element.name}
                 </HoverableElement>
               </Link>
@@ -98,13 +103,13 @@ function Navbar() {
                 onClick={() => setOpenSearch(true)}
               >
                 <span className="sr-only">Open main menu</span>
-                <HiSearch className="h-[1.2rem] w-[1.2rem] text-gray-100" aria-hi="true"/>
+                <HiSearch className="h-[1.2rem] w-[1.2rem] text-gray-700" aria-hi="true"/>
               </button>
             </div>
             
             <Menu as="div" className="relative ml-2">
                 <div>
-                  <Menu.Button className="text-gray-100 hover:text-black dark:text-slate-200 dark:hover:text-white">
+                  <Menu.Button className="text-gray-700 hover:text-black dark:text-slate-200 dark:hover:text-white">
                     <HiOutlineShoppingBag size={18} />
                   </Menu.Button>
                 </div>
