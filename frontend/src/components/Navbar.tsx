@@ -13,6 +13,10 @@ import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import {Token} from '../Interfaces';
 import {HoverableElement} from './HoverableElement'
 
+type NavbarProps = {
+  setIsBlur: (state: boolean) => void
+}
+
 const navbarElements = [
   {name: 'Store', to:'/store', id: 0},
   {name: 'iPhone', to:'/', id:1},
@@ -24,7 +28,7 @@ const navbarElements = [
   {name: 'Support', to:'/', id:7},
 ]
 
-function Navbar() {
+function Navbar({setIsBlur}: NavbarProps) {
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [openSearch, setOpenSearch] = useState(false)
@@ -32,18 +36,10 @@ function Navbar() {
   const {isAuth} = useAuthStore()
   const [viewDropDown, setViewDropDown] = useState(false)
   const [stillDropDown, setStillDropDown] = useState(false)
+  const [IDDropDown, setIDDropDown] = useState(-1)
+  const [navbarColor, setIsNavbarColor] = useState(false)
 
   let is_admin: boolean = false
-
-  const handleStillDropDown = () => {
-    if(viewDropDown) {
-      setStillDropDown(true)
-    }
-  } 
-
-  console.log("Soy view drop down: ", viewDropDown)
-
-  console.log("Soy still", stillDropDown)
 
   if(isAuth){
     const tokenDecoded : Token = jwt_decode(token)
@@ -52,6 +48,11 @@ function Navbar() {
 
   const receiveState = (state: boolean) => {
     setViewDropDown(state)
+    setIsNavbarColor(state)
+  }
+
+  const receiveID = (id: number) => {
+    setIDDropDown(id)
   }
 
   function logOutFun() {
@@ -65,7 +66,7 @@ function Navbar() {
 
   return (
     <div className='relative'>
-      <header className={`w-full first-letter fixed top-0 ${viewDropDown ? 'bg-[#161617]' : 'bg-[#f5f5f7]'} z-40 dark:bg-gray-300`} onMouseEnter={handleStillDropDown}>
+      <header className={`w-full first-letter fixed top-0 ${navbarColor ? 'bg-[#161617]' : 'bg-[#f5f5f7]'} z-40 dark:bg-gray-300`}>
         <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8 h-8 w-[60%]" aria-label="Global">
           <div className="flex lg:flex-1">
             <Link to='/' className="-m-1.5 p-1.5">
@@ -91,8 +92,17 @@ function Navbar() {
           </div>
           <div className='hidden md:flex gap-x-12'>
             {navbarElements.map((element: any) => (
-              <Link to={element.to} className={`text-[11px] ${viewDropDown ? 'text-gray-200' : 'text-gray-700'}  font-semibold leading-loose p-1`}>
-                <HoverableElement id={element.id} setViewDropDown={receiveState} setStillDropDown={setStillDropDown}>
+              <Link to={element.to} className={`text-[11px] ${viewDropDown ? 'text-gray-200' : 'text-gray-700'}  font-semibold leading-loose p-1`} onMouseEnter={() => receiveID(element.id)}>
+                <HoverableElement 
+                  id={element.id} 
+                  setViewDropDown={receiveState} 
+                  setStillDropDown={setStillDropDown} 
+                  viewDropDown={viewDropDown} 
+                  stillDropDown={stillDropDown} 
+                  setIsBlur={setIsBlur}
+                  setIsNavbarColor={setIsNavbarColor}
+                  IDDropDown={IDDropDown}
+                  >
                   {element.name}
                 </HoverableElement>
               </Link>

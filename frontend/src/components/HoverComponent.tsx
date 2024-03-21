@@ -5,6 +5,7 @@ type HoverProps = {
   setIsHover: (state: boolean) => void
   setViewDropDown: (state: boolean) => void
   setStillDropDown: (state: boolean) => void
+  setIsNavbarColor: (state: boolean) => void
 }
 
 type ElementProps = {
@@ -12,13 +13,15 @@ type ElementProps = {
   href?: string
 }
 
-function HoverComponent({id, setIsHover , setViewDropDown, setStillDropDown}: HoverProps) {
+function HoverComponent({id, setIsHover , setViewDropDown, setStillDropDown, setIsNavbarColor}: HoverProps) {
 
   const handleBlurHover = () => {
     setViewDropDown(false)
     setIsHover(false)
     setStillDropDown(false)
+    setIsNavbarColor(false)
   }
+
 
   const data = elements[id]
 
