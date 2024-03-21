@@ -33,13 +33,17 @@ function Navbar() {
   const [viewDropDown, setViewDropDown] = useState(false)
   const [stillDropDown, setStillDropDown] = useState(false)
 
-  let is_admin: boolean
-  is_admin = false
+  let is_admin: boolean = false
 
   const handleStillDropDown = () => {
-    setStillDropDown(true)
+    if(viewDropDown) {
+      setStillDropDown(true)
+    }
   } 
-  console.log(stillDropDown)
+
+  console.log("Soy view drop down: ", viewDropDown)
+
+  console.log("Soy still", stillDropDown)
 
   if(isAuth){
     const tokenDecoded : Token = jwt_decode(token)
@@ -103,13 +107,13 @@ function Navbar() {
                 onClick={() => setOpenSearch(true)}
               >
                 <span className="sr-only">Open main menu</span>
-                <HiSearch className="h-[1.2rem] w-[1.2rem] text-gray-700" aria-hi="true"/>
+                <HiSearch className={`h-[1.2rem] w-[1.2rem] ${viewDropDown ? 'text-gray-200' : 'text-gray-700'}`} aria-hi="true"/>
               </button>
             </div>
             
             <Menu as="div" className="relative ml-2">
                 <div>
-                  <Menu.Button className="text-gray-700 hover:text-black dark:text-slate-200 dark:hover:text-white">
+                  <Menu.Button className={`${viewDropDown ? 'text-gray-200' : 'text-gray-700'} hover:text-black dark:text-slate-200 dark:hover:text-white`}>
                     <HiOutlineShoppingBag size={18} />
                   </Menu.Button>
                 </div>
