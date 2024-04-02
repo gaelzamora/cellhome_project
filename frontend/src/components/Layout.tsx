@@ -8,6 +8,7 @@ const Layout = ()  => {
   
   const [isBlur, setIsBlur] = useState(false)
 
+
   return (
     <div className="bg-[#f5f5f7]">
       <Toaster />

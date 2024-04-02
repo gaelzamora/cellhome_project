@@ -11,14 +11,15 @@ import {
 } from '@heroicons/react/24/outline'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import {Token} from '../Interfaces';
-import {HoverableElement} from './HoverableElement'
+import HoverableElement from './HoverableElement'
+import VisibleHover from './VisibleHover'
 
 type NavbarProps = {
   setIsBlur: (state: boolean) => void
 }
 
 const navbarElements = [
-  {name: 'Store', to:'/store', id: 0},
+  {name: 'Store', to:'/store', id: 0  },
   {name: 'iPhone', to:'/', id:1},
   {name: 'Watch', to:'/', id:2},
   {name: 'iPad', to:'/', id:3},
@@ -35,24 +36,25 @@ function Navbar({setIsBlur}: NavbarProps) {
   const token: string = useAuthStore.getState().access
   const {isAuth} = useAuthStore()
   const [viewDropDown, setViewDropDown] = useState(false)
-  const [stillDropDown, setStillDropDown] = useState(false)
-  const [IDDropDown, setIDDropDown] = useState(-1)
   const [navbarColor, setIsNavbarColor] = useState(false)
+  const [isVisible, setIsVisible] = useState(false)
+
+  const handleEnterVisibleHover = () => {
+    console.log("Entrando el hover")
+    setIsVisible(true)
+  }
+
+  const handleLeaveVisibleHover = () => {
+    console.log("Saliendo el hover")
+    setIsVisible(false)
+  }
+
 
   let is_admin: boolean = false
 
   if(isAuth){
     const tokenDecoded : Token = jwt_decode(token)
     is_admin = tokenDecoded.is_staff
-  }
-
-  const receiveState = (state: boolean) => {
-    setViewDropDown(state)
-    setIsNavbarColor(state)
-  }
-
-  const receiveID = (id: number) => {
-    setIDDropDown(id)
   }
 
   function logOutFun() {
@@ -66,130 +68,130 @@ function Navbar({setIsBlur}: NavbarProps) {
 
   return (
     <div className='relative'>
-      <header className={`w-full first-letter fixed top-0 ${navbarColor ? 'bg-[#161617]' : 'bg-[#f5f5f7]'} z-40 dark:bg-gray-300`}>
-        <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8 h-8 w-[60%]" aria-label="Global">
-          <div className="flex lg:flex-1">
-            <Link to='/' className="-m-1.5 p-1.5">
-              <span className="sr-only">Your Company</span>
-              <img className="h-10 w-auto" src={cellhome} alt="" />
-            </Link>
-          </div>
-          <div className='flex lg:hidden'>
-            <form action="">
-              <HiSearch className="h-5 w-5 absolute top-3.5 ml-2 text-gray-100" aria-hi="true" />
-              <input type="search" className='w-full rounded-full outline-blue-950 px-9 py-2 text-sm ralative focus:border-gray-100' placeholder='Buscar...'/>
-            </form>
-          </div>
-          <div className="flex lg:hidden">
-            <button
-              type="button"
-              className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
-              onClick={() => setMobileMenuOpen(true)}
-            >
-              <span className="sr-only">Open main menu</span>
-              <Bars3Icon className="h-6 w-6 text-white" aria-hi="true" />
-            </button>
-          </div>
-          <div className='hidden md:flex gap-x-12'>
-            {navbarElements.map((element: any) => (
-              <Link to={element.to} className={`text-[11px] ${viewDropDown ? 'text-gray-200' : 'text-gray-700'}  font-semibold leading-loose p-1`} onMouseEnter={() => receiveID(element.id)}>
-                <HoverableElement 
-                  id={element.id} 
-                  setViewDropDown={receiveState} 
-                  setStillDropDown={setStillDropDown} 
-                  viewDropDown={viewDropDown} 
-                  stillDropDown={stillDropDown} 
-                  setIsBlur={setIsBlur}
-                  setIsNavbarColor={setIsNavbarColor}
-                  IDDropDown={IDDropDown}
-                  >
-                  {element.name}
-                </HoverableElement>
+      <header className={`w-screen first-letter fixed top-0 ${navbarColor ? 'bg-[#161617]' : 'bg-[#f5f5f7]'} z-50 dark:bg-gray-300`} 
+      onMouseLeave={handleLeaveVisibleHover}
+      >
+        <nav className="flex relative justify-between p-6 h-8 w-screen" aria-label="Global" 
+          onMouseEnter={handleEnterVisibleHover}>
+          <div className='w-[80%] flex items-center mx-auto lg:px-8 justify-between'>
+            <div className="flex lg:flex-1">
+              <Link to='/' className="-m-1.5 p-1.5">
+                <span className="sr-only">Your Company</span>
+                <img className="h-10 w-auto" src={cellhome} alt="" />
               </Link>
-            ))}         
-          </div> 
-    
-          <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:gap-3">
-            <div className='flex'>
+            </div>
+            <div className='flex lg:hidden'>
+              <form action="">
+                <HiSearch className="h-5 w-5 absolute top-3.5 ml-2 text-gray-100" aria-hi="true" />
+                <input type="search" className='w-full rounded-full outline-blue-950 px-9 py-2 text-sm ralative focus:border-gray-100' placeholder='Buscar...'/>
+              </form>
+            </div>
+            <div className="flex lg:hidden">
               <button
                 type="button"
                 className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
-                onClick={() => setOpenSearch(true)}
+                onClick={() => setMobileMenuOpen(true)}
               >
                 <span className="sr-only">Open main menu</span>
-                <HiSearch className={`h-[1.2rem] w-[1.2rem] ${viewDropDown ? 'text-gray-200' : 'text-gray-700'}`} aria-hi="true"/>
+                <Bars3Icon className="h-6 w-6 text-white" aria-hi="true" />
               </button>
             </div>
-            
-            <Menu as="div" className="relative ml-2">
-                <div>
-                  <Menu.Button className={`${viewDropDown ? 'text-gray-200' : 'text-gray-700'} hover:text-black dark:text-slate-200 dark:hover:text-white`}>
-                    <HiOutlineShoppingBag size={18} />
-                  </Menu.Button>
-                </div>
-                <Transition
-                  as={Fragment}
-                  enter="transition ease-out duration-100"
-                  enterFrom="transform opacity-0 scale-95"
-                  enterTo="transform opacity-100 scale-100"
-                  leave="transition ease-in duration-75"
-                  leaveFrom="transform opacity-100 scale-100"
-                  leaveTo="transform opacity-0 scale-95"
+            <div className='hidden md:flex gap-x-12'>
+              {navbarElements.map((element: any) => (
+                <Link to={element.to} className={`text-[11px] ${viewDropDown ? 'text-gray-200' : 'text-gray-700'} 
+                font-semibold leading-loose p-1`}>
+                  <HoverableElement>
+                    {element.name}
+                  </HoverableElement>
+                </Link>
+              ))}         
+            </div> 
+      
+            <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:gap-3">
+              <div className='flex'>
+                <button
+                  type="button"
+                  className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700"
+                  onClick={() => setOpenSearch(true)}
                 >
-                  <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-righ bg-white dark:bg-slate-950 py-1 shadow-lg ring-black ring-opacity-5 focus:outline-none">
-                    
-                    <Menu.Item>
-                      {({ active }) => (
-                        <Link to="/" className={classNames(active ? 'bg-gray-100 dark:bg-slate-700' : '', 'block px-4 py-2 text-sm text-gray-700 dark:text-slate-200')}>
-                          Pedidos
-                        </Link>
-                      )}
-                    </Menu.Item>
-                    
-                    <Menu.Item>
-                      {({ active }) => (
-                        <Link to="/" className={classNames(active ? 'bg-gray-100 dark:bg-slate-700' : '', 'block px-4 py-2 text-sm text-gray-700 dark:text-slate-200')}>
-                          Tus selecciones
-                        </Link>
-                      )}
-                    </Menu.Item>
-                    <Menu.Item>
-                      {({ active }) => (
-                        <Link to="/accounts/profile" className={classNames(active ? 'bg-gray-100 dark:bg-slate-700' : '', 'block px-4 py-2 text-sm text-gray-700 dark:text-slate-200')}>
-                          Cuenta
-                        </Link>
-                      )}
-                    </Menu.Item>
-                    {isAuth ? (
-                      <Menu.Item>
-                      {({ active }) => (
-                          <a onClick={() => logOutFun()} className={classNames(active ? 'bg-gray-100 dark:bg-slate-700 cursor-pointer' : '', 'block px-4 py-2 text-sm text-gray-700 dark:text-slate-200')}>
-                            Cerrar sesion
-                          </a>
-                      )}
-                      </Menu.Item>
-                    ) : (
+                  <span className="sr-only">Open main menu</span>
+                  <HiSearch className={`h-[1.2rem] w-[1.2rem] ${viewDropDown ? 'text-gray-200' : 'text-gray-700'}`} aria-hi="true"/>
+                </button>
+              </div>
+              
+              <Menu as="div" className="relative ml-2">
+                  <div>
+                    <Menu.Button className={`${viewDropDown ? 'text-gray-200' : 'text-gray-700'} hover:text-black dark:text-slate-200 dark:hover:text-white`}>
+                      <HiOutlineShoppingBag size={18} />
+                    </Menu.Button>
+                  </div>
+                  <Transition
+                    as={Fragment}
+                    enter="transition ease-out duration-100"
+                    enterFrom="transform opacity-0 scale-95"
+                    enterTo="transform opacity-100 scale-100"
+                    leave="transition ease-in duration-75"
+                    leaveFrom="transform opacity-100 scale-100"
+                    leaveTo="transform opacity-0 scale-95"
+                  >
+                    <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-righ bg-white dark:bg-slate-950 py-1 shadow-lg ring-black ring-opacity-5 focus:outline-none">
+                      
                       <Menu.Item>
                         {({ active }) => (
-                          <Link to="/accounts/login" className={classNames(active ? 'bg-gray-100 dark:bg-slate-700' : '', 'block px-4 py-2 text-sm text-gray-700 dark:text-slate-200')}>
-                            Iniciar Sesion
+                          <Link to="/" className={classNames(active ? 'bg-gray-100 dark:bg-slate-700' : '', 'block px-4 py-2 text-sm text-gray-700 dark:text-slate-200')}>
+                            Pedidos
                           </Link>
                         )}
                       </Menu.Item>
-                    )}
-                    {is_admin && is_admin && (
+                      
                       <Menu.Item>
                         {({ active }) => (
-                          <Link to="/admin" className={classNames(active ? 'bg-gray-100 dark:bg-slate-700' : '', 'block px-4 py-2 text-sm text-gray-700 dark:text-slate-200')}>
-                            Admin Panel
+                          <Link to="/" className={classNames(active ? 'bg-gray-100 dark:bg-slate-700' : '', 'block px-4 py-2 text-sm text-gray-700 dark:text-slate-200')}>
+                            Tus selecciones
                           </Link>
                         )}
                       </Menu.Item>
-                    )}
-                  </Menu.Items>
-                </Transition>
-            </Menu>
+                      <Menu.Item>
+                        {({ active }) => (
+                          <Link to="/accounts/profile" className={classNames(active ? 'bg-gray-100 dark:bg-slate-700' : '', 'block px-4 py-2 text-sm text-gray-700 dark:text-slate-200')}>
+                            Cuenta
+                          </Link>
+                        )}
+                      </Menu.Item>
+                      {isAuth ? (
+                        <Menu.Item>
+                        {({ active }) => (
+                            <a onClick={() => logOutFun()} className={classNames(active ? 'bg-gray-100 dark:bg-slate-700 cursor-pointer' : '', 'block px-4 py-2 text-sm text-gray-700 dark:text-slate-200')}>
+                              Cerrar sesion
+                            </a>
+                        )}
+                        </Menu.Item>
+                      ) : (
+                        <Menu.Item>
+                          {({ active }) => (
+                            <Link to="/accounts/login" className={classNames(active ? 'bg-gray-100 dark:bg-slate-700' : '', 'block px-4 py-2 text-sm text-gray-700 dark:text-slate-200')}>
+                              Iniciar Sesion
+                            </Link>
+                          )}
+                        </Menu.Item>
+                      )}
+                      {is_admin && is_admin && (
+                        <Menu.Item>
+                          {({ active }) => (
+                            <Link to="/admin" className={classNames(active ? 'bg-gray-100 dark:bg-slate-700' : '', 'block px-4 py-2 text-sm text-gray-700 dark:text-slate-200')}>
+                              Admin Panel
+                            </Link>
+                          )}
+                        </Menu.Item>
+                      )}
+                    </Menu.Items>
+                  </Transition>
+              </Menu>
+            </div>
           </div>
+          <VisibleHover in={isVisible}>
+            <p>Hola</p>
+          </VisibleHover>
         </nav>
         <Dialog as="div" className="lg:hidden z-10" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
           <div className="fixed inset-0 z-10" />
@@ -308,6 +310,7 @@ function Navbar({setIsBlur}: NavbarProps) {
               </div>
             </div>
           </Dialog.Panel>
+          
         </Dialog>
       </header>
 

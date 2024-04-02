@@ -9,7 +9,7 @@ import {Typewriter} from 'react-simple-typewriter'
 function HomePage() {
 
   return (
-    <div className='z-50 overflow-x-hidden'>
+    <div className='z-30 overflow-x-hidden'>
       <section className='mx-auto text-center mb-14'>
         <Link to='/store' className='pb-0'>  
           <div

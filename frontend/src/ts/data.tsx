@@ -64,5 +64,26 @@ export const elements = [
     { name: 'Apple Watch Series 9', href: '#'},
     { name: 'Apple Watch Ultra ', href: '#'},
     { name: 'Ver todos los AppleWatch', href: '#'},
-  ]
+  ],
+  [
+    { name: 'Explore iPad', type: 'text-gray'},
+    { name: 'Explore All iPad', href: '#', type: 'title'},
+    { name: 'iPad Pro', href: '#', type: 'title'},
+    { name: 'iPad Air', href: '#', type: 'title'},
+    { name: 'iPad', href: '#', type: 'title'},
+    { name: 'iPad mini', href: '#',   type: 'title'},
+    { name: 'Apple Pencil', href: '#', type: 'title'},
+    { name: 'Keyboards', href: '#', type: 'title'},
+    { name: 'Compare iPad', type: 'text'},
+    { name: 'Why iPad', type:'text'}
+  ],
+  [
+    { name: 'Explore AirPods', type: 'text-gray'},
+    { name: 'Explore All AirPods', type: 'title'},
+    { name: 'AirPods Pro 2nd generation', href: '#', type: 'title'},
+    { name: 'AirPods 2nd generation', href: '#', type: 'title'},
+    { name: 'AirPods 3rd generation', href: '#', type: 'title'},
+    { name: 'AirPods Max', href: '#', type: 'title'},
+    { name: 'Compare AirPods', href: '#', type: 'text'},
+  ],
 ]
