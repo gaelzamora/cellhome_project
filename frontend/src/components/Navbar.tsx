@@ -12,7 +12,6 @@ import {
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import {Token} from '../Interfaces';
 import HoverableElement from './HoverableElement'
-import VisibleHover from './VisibleHover'
 
 type NavbarProps = {
   setIsBlur: (state: boolean) => void
@@ -36,19 +35,6 @@ function Navbar({setIsBlur}: NavbarProps) {
   const token: string = useAuthStore.getState().access
   const {isAuth} = useAuthStore()
   const [viewDropDown, setViewDropDown] = useState(false)
-  const [navbarColor, setIsNavbarColor] = useState(false)
-  const [isVisible, setIsVisible] = useState(false)
-
-  const handleEnterVisibleHover = () => {
-    console.log("Entrando el hover")
-    setIsVisible(true)
-  }
-
-  const handleLeaveVisibleHover = () => {
-    console.log("Saliendo el hover")
-    setIsVisible(false)
-  }
-
 
   let is_admin: boolean = false
 
@@ -68,11 +54,8 @@ function Navbar({setIsBlur}: NavbarProps) {
 
   return (
     <div className='relative'>
-      <header className={`w-screen first-letter fixed top-0 ${navbarColor ? 'bg-[#161617]' : 'bg-[#f5f5f7]'} z-50 dark:bg-gray-300`} 
-      onMouseLeave={handleLeaveVisibleHover}
-      >
-        <nav className="flex relative justify-between p-6 h-8 w-screen" aria-label="Global" 
-          onMouseEnter={handleEnterVisibleHover}>
+      <header className={`w-screen first-letter fixed top-0bg-[#f5f5f7] z-50 dark:bg-gray-300`} >
+        <nav className="flex relative justify-between p-6 h-8 w-screen" aria-label="Global" >
           <div className='w-[80%] flex items-center mx-auto lg:px-8 justify-between'>
             <div className="flex lg:flex-1">
               <Link to='/' className="-m-1.5 p-1.5">
@@ -98,8 +81,7 @@ function Navbar({setIsBlur}: NavbarProps) {
             </div>
             <div className='hidden md:flex gap-x-12'>
               {navbarElements.map((element: any) => (
-                <Link to={element.to} className={`text-[11px] ${viewDropDown ? 'text-gray-200' : 'text-gray-700'} 
-                font-semibold leading-loose p-1`}>
+                <Link to={element.to} className={`text-[11px] text-gray-700 font-semibold leading-loose p-1`}>
                   <HoverableElement>
                     {element.name}
                   </HoverableElement>
@@ -115,13 +97,13 @@ function Navbar({setIsBlur}: NavbarProps) {
                   onClick={() => setOpenSearch(true)}
                 >
                   <span className="sr-only">Open main menu</span>
-                  <HiSearch className={`h-[1.2rem] w-[1.2rem] ${viewDropDown ? 'text-gray-200' : 'text-gray-700'}`} aria-hi="true"/>
+                  <HiSearch className={`h-[1.2rem] w-[1.2rem] text-gray-700`} aria-hi="true"/>
                 </button>
               </div>
               
               <Menu as="div" className="relative ml-2">
                   <div>
-                    <Menu.Button className={`${viewDropDown ? 'text-gray-200' : 'text-gray-700'} hover:text-black dark:text-slate-200 dark:hover:text-white`}>
+                    <Menu.Button className={`text-gray-700 hover:text-black dark:text-slate-200 dark:hover:text-white`}>
                       <HiOutlineShoppingBag size={18} />
                     </Menu.Button>
                   </div>
@@ -189,9 +171,6 @@ function Navbar({setIsBlur}: NavbarProps) {
               </Menu>
             </div>
           </div>
-          <VisibleHover in={isVisible}>
-            <p>Hola</p>
-          </VisibleHover>
         </nav>
         <Dialog as="div" className="lg:hidden z-10" open={mobileMenuOpen} onClose={setMobileMenuOpen}>
           <div className="fixed inset-0 z-10" />
