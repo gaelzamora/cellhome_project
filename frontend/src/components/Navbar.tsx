@@ -12,6 +12,7 @@ import {
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import {Token} from '../Interfaces';
 import HoverableElement from './HoverableElement'
+import '../index.css'
 
 type NavbarProps = {
   setIsBlur: (state: boolean) => void
@@ -81,7 +82,7 @@ function Navbar({setIsBlur}: NavbarProps) {
             </div>
             <div className='hidden md:flex gap-x-12'>
               {navbarElements.map((element: any) => (
-                <Link to={element.to} className={`text-[11px] text-gray-700 font-semibold leading-loose p-1`}>
+                <Link to={element.to} className={`nav`}>
                   <HoverableElement>
                     {element.name}
                   </HoverableElement>

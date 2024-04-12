@@ -47,7 +47,7 @@ function RegisterPage() {
   if (isAuth) return (<Navigate to="/"/>)
 
   return (
-    <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+    <div className="flex min-h-full flex-col justify-center px-6 py-20 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <h2 className="mt-5 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">Sign up here</h2>
       </div>
@@ -118,7 +118,7 @@ function RegisterPage() {
 
         <p className="mt-10 text-center text-sm text-gray-500">
           ¿Ya tienes una cuenta?
-          <Link to='/login' className="font-semibold leading-6 text-gray-800 hover:text-gray-700">{' '}Iniciar sesión</Link>
+          <Link to='/accounts/login' className="font-semibold leading-6 text-gray-800 hover:text-gray-700">{' '}Iniciar sesión</Link>
         </p>
       </div>
     </div>

@@ -9,6 +9,7 @@ import AddProductPage from './pages/AddProductPage'
 import DashboardPage from './pages/DashboardPage'
 import {PrivateRoute, AdminPrivateRoute} from './components/PrivateRoute'
 import EditProductPage from './pages/EditProductPage'
+import './index.css'
 
 function App() {
   return (

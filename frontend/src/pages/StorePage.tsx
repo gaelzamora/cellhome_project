@@ -3,11 +3,9 @@ import { get_products } from "../api/products"
 import { useEffect } from "react"
 import toast from "react-hot-toast"
 import { useInView } from "react-intersection-observer"
-
-import Slider from "../components/Slider"
 import iconSupport from '../assets/support.jpg'
+import Slider from "../components/Slider"
 
-import { banners } from "../ts/data"
 import { categories } from "../ts/data"
 
 import { Link } from "react-router-dom"
@@ -69,8 +67,8 @@ function StorePage() {
       <section className="mt-20">
           <p className="text-gray-500 font-bold text-[1.7em]"><span className="text-black">The latest.</span> Take a look at what's new, right now.</p>
           <div className="overflow-x-hidden">
-            <div className="sticky top-0 pb-4 ">
-              <Slider items={banners} />
+            <div className="sticky top-0 pb-4 mt-4 ">
+              <Slider />
             </div>
           </div>
       </section>

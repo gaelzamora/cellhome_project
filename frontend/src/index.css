@@ -2,22 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'San Francisco';
+  src: url('../src/fonts/SF-Pro-Display-Black.otf') format('truetype');
+}
+
+
 @layer utilities {
-    .fade-enter {
-        opacity: 0;
-      }
-      
-      .fade-enter-active {
-        opacity: 1;
-        transition: opacity 300ms ease-in;
-      }
-      
-      .fade-exit {
-        opacity: 1;
-      }
-      
-      .fade-exit-active {
-        opacity: 0;
-        transition: opacity 300ms ease-out;
-      }
+  .nav {
+    @apply relative text-[11px] text-gray-700 font-semibold leading-loose p-[0.5px] hover:text-gray-900
+  }
+  .nav::after {
+    @apply content-[''] bg-gray-800 h-[3px] w-[0%] left-0 -bottom-[5px] rounded-xl absolute duration-[400ms]
+  }
+  .nav:hover::after{
+    @apply w-[100%]
+  }
 }

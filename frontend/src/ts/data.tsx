@@ -24,7 +24,8 @@ export const categories = [
     {name: 'AirPods', image: iconAirPods},
     {name: 'Accessories', image: iconAccesories},
   ]
-  
+
+
 export const banners = [
     {product: "Apple Vision Pro", title: "Prepare for pre-order.", description: "Pre-order starting 1.19 at 5:00 a.m. PT", img: bgAppleVision, isWhite: true},
     {product: "iPhone 15 Pro", title: "Titanium", description: "From $999 or $41.62/mo. for 24 mo.*", img: bgIphone, isWhite: false},
@@ -33,6 +34,7 @@ export const banners = [
     {product: "Black Unity Sport Band", title: "Unity in bloom.", description: "$49.00", img: bgBlackUnity, isWhite: false},
     {product: "Ipad", title: "Lovable.Drawable.Magicial", description: "From $449 or $39.41/mo. for 12 mo.*", img: bgIpad, isWhite: true},
 ]
+
 
 export const helpBanners = [
   {type: "Apple Specialist", title: "Shop one on one with a Specialist. Online or in a store.", description: "", isColor: true, img: bgSpecialist},
