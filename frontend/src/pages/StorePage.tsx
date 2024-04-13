@@ -5,10 +5,10 @@ import toast from "react-hot-toast"
 import { useInView } from "react-intersection-observer"
 import iconSupport from '../assets/support.jpg'
 import Slider from "../components/Slider"
+import { Link } from "react-router-dom"
 
 import { categories } from "../ts/data"
 
-import { Link } from "react-router-dom"
 
 
 function StorePage() {
@@ -57,10 +57,10 @@ function StorePage() {
       <section className=" flex gap-2 mx-auto">
         {categories.map(categorie => (
           <Link to=''>
-            <div className="text-center text-gray-700 font-semibold">
+            <Link to={`buy-${categorie.link}`} className="text-center text-gray-700 font-semibold">
               <img src={categorie.image} alt="itemimage" className="w-32 mb-3" />
               <p>{categorie.name}</p>
-            </div>
+            </Link>
           </Link>
         ))}
       </section>

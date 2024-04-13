@@ -5,6 +5,7 @@ import LoginPage from './pages/LoginPage'
 import RegisterPage from './pages/RegisterPage'
 import StorePage from './pages/StorePage'
 import AdminPage from './pages/AdminPage'
+import ItemPage from './pages/ItemPage'
 import AddProductPage from './pages/AddProductPage'
 import DashboardPage from './pages/DashboardPage'
 import {PrivateRoute, AdminPrivateRoute} from './components/PrivateRoute'
@@ -17,7 +18,10 @@ function App() {
       <Routes>
         <Route path='/' element={<Layout />}>
           <Route index element={<HomePage />} />  
-          <Route path='store' element={<StorePage />} />
+          <Route path='store'>
+            <Route index element={<StorePage />} />
+            <Route path=':category' element={<ItemPage />} />
+          </Route>
           <Route path='admin' element={<AdminPage />} />
           <Route path='add' element={<AddProductPage />} />
 

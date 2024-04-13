@@ -4,9 +4,8 @@
 
 @font-face {
   font-family: 'San Francisco';
-  src: url('../src/fonts/SF-Pro-Display-Black.otf') format('truetype');
+  src: url('../src/fonts/SFPRODISPLAYBOLD.OTF') format('truetype');
 }
-
 
 @layer utilities {
   .nav {
@@ -18,4 +17,5 @@
   .nav:hover::after{
     @apply w-[100%]
   }
+  
 }

@@ -40,7 +40,7 @@ function AddProductPage() {
             category: category, 
             description: description, 
             price: price, 
-            image: image 
+            image: image
         });
     };
 

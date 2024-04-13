@@ -40,10 +40,9 @@ def create_product(request):
     if request.user.is_staff:
         serializer = ProductSerializer(data=request.data)
         if serializer.is_valid():
-            name = serializer.validated_data['name']
             category = serializer.validated_data['category']
-            s = name + category
-            slug = slugify(s)
+            s='buy-'+category
+            slug = slugify(category)
 
             if serializer.Meta.model.objects.filter(slug=slug).exists():
                 return Response(serializer.data, status.HTTP_400_BAD_REQUEST)
@@ -74,3 +73,9 @@ def delete_product(request, pk):
         return Response(status=status.HTTP_204_NO_CONTENT)
     else:
         return Response(status=status.HTTP_401_UNAUTHORIZED)
+
+@api_view(['GET'])
+def get_categorie(request, categorie):
+    products = Product.objects.filter(category__icontains=categorie)
+    serializer = ProductSerializer(products, many=True)
+    return Response(serializer.data)
