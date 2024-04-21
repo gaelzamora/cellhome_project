@@ -75,7 +75,7 @@ def delete_product(request, pk):
         return Response(status=status.HTTP_401_UNAUTHORIZED)
 
 @api_view(['GET'])
-def get_categorie(request, categorie):
-    products = Product.objects.filter(category__icontains=categorie)
+def get_categorie(request, slug):
+    products = Product.objects.filter(slug=slug)
     serializer = ProductSerializer(products, many=True)
     return Response(serializer.data)

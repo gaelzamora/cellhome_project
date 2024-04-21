@@ -14,10 +14,6 @@ import {Token} from '../Interfaces';
 import HoverableElement from './HoverableElement'
 import '../index.css'
 
-type NavbarProps = {
-  setIsBlur: (state: boolean) => void
-}
-
 const navbarElements = [
   {name: 'Store', to:'/store', id: 0  },
   {name: 'iPhone', to:'/', id:1},
@@ -29,13 +25,12 @@ const navbarElements = [
   {name: 'Support', to:'/', id:7},
 ]
 
-function Navbar({setIsBlur}: NavbarProps) {
+function Navbar() {
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [openSearch, setOpenSearch] = useState(false)
   const token: string = useAuthStore.getState().access
   const {isAuth} = useAuthStore()
-  const [viewDropDown, setViewDropDown] = useState(false)
 
   let is_admin: boolean = false
 
@@ -54,7 +49,6 @@ function Navbar({setIsBlur}: NavbarProps) {
   }
 
   return (
-    <div className='relative'>
       <header className={`w-screen first-letter fixed top-0bg-[#f5f5f7] z-50 dark:bg-gray-300`} >
         <nav className="flex relative justify-between p-6 h-8 w-screen" aria-label="Global" >
           <div className='w-[80%] flex items-center mx-auto lg:px-8 justify-between'>
@@ -293,8 +287,6 @@ function Navbar({setIsBlur}: NavbarProps) {
           
         </Dialog>
       </header>
-
-    </div>
   )
 }
 

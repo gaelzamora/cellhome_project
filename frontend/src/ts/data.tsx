@@ -17,12 +17,12 @@ import bgNew from '../assets/card-9.jpg'
 import bgToday from '../assets/card-10.jpg'
 
 export const categories = [
-    {name: 'Mac', image: iconMac, link: 'mac'},
-    {name: 'iPhone', image: iconIphone, link:'iphone'},
-    {name: 'iPad', image: iconIpad, link: 'ipad'},
-    {name: 'Apple Watch', image: iconAppleWatch, link: 'applewatch'},
-    {name: 'AirPods', image: iconAirPods, link: 'airpods'},
-    {name: 'Accessories', image: iconAccesories, link: 'accesories'},
+    {name: 'Mac', image: iconMac, link: 'buy-mac'},
+    {name: 'iPhone', image: iconIphone, link:'buy-iphone'},
+    {name: 'iPad', image: iconIpad, link: 'buy-ipad'},
+    {name: 'Apple Watch', image: iconAppleWatch, link: 'buy-applewatch'},
+    {name: 'AirPods', image: iconAirPods, link: 'buy-airpods'},
+    {name: 'Accessories', image: iconAccesories, link: 'buy-accesories'},
   ]
 
 

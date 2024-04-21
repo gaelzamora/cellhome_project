@@ -1,19 +1,27 @@
 import {Autoplay, Pagination} from 'swiper/modules'
 import {Swiper, SwiperSlide} from 'swiper/react';
 import "swiper/css"
-import { banners } from '../ts/data';
-import { Item } from '../Interfaces';
+import { Item, Product } from '../Interfaces';
 import Card from './Card';
 
-function Slider() {
+type SliderProps = {
+  products?: Product[]
+  items?: Item[]
+}
+
+function Slider(props : SliderProps) {
+  const {products, items} = props
+
+  console.log(products)
+
   return (
     <div>
       <div>
           <Swiper
               modules={[Pagination, Autoplay]}
               autoplay={{
-                delay: 3000,
-                disableOnInteraction: false
+                delay: 5000,
+                disableOnInteraction: true
               }}
               pagination={{
                 el: ".pagination",
@@ -47,16 +55,27 @@ function Slider() {
                 },
               }}
             >
-              {banners.map((item: Item) => (
-                <SwiperSlide key={item.product}>
-                  <Card 
-                    product={item.product} 
-                    title={item.title} 
-                    description={item.description} 
-                    img={item.img} 
-                    isColor={item.isWhite}/>
-                </SwiperSlide>
-              ))}
+              {products ? (
+                <>          
+                  {products?.map(product => (
+                    <p>{product.name}</p>
+                  ))}
+                </>
+              ) : (
+                <>
+                  {items?.map(item => (
+                    <SwiperSlide key={item.product}>
+                      <Card 
+                        product={item.product}
+                        title={item.title} 
+                        description={item.description} 
+                        img={item.img} 
+                        isColor={item.isWhite}
+                      />
+                    </SwiperSlide>
+                  ))}
+                </>
+              )}
           </Swiper>
       </div>
       <div className='pagination' />

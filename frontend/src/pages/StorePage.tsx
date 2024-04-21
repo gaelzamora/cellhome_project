@@ -6,10 +6,9 @@ import { useInView } from "react-intersection-observer"
 import iconSupport from '../assets/support.jpg'
 import Slider from "../components/Slider"
 import { Link } from "react-router-dom"
+import { banners } from "../ts/data"
 
 import { categories } from "../ts/data"
-
-
 
 function StorePage() {
 
@@ -57,7 +56,7 @@ function StorePage() {
       <section className=" flex gap-2 mx-auto">
         {categories.map(categorie => (
           <Link to=''>
-            <Link to={`buy-${categorie.link}`} className="text-center text-gray-700 font-semibold">
+            <Link to={`${categorie.link}`} className="text-center text-gray-700 font-semibold">
               <img src={categorie.image} alt="itemimage" className="w-32 mb-3" />
               <p>{categorie.name}</p>
             </Link>
@@ -68,7 +67,7 @@ function StorePage() {
           <p className="text-gray-500 font-bold text-[1.7em]"><span className="text-black">The latest.</span> Take a look at what's new, right now.</p>
           <div className="overflow-x-hidden">
             <div className="sticky top-0 pb-4 mt-4 ">
-              <Slider />
+              <Slider items={banners} />
             </div>
           </div>
       </section>
