@@ -30,7 +30,7 @@ function StorePage() {
   if(error instanceof Error) return <>{toast.error(error.message)}</>
   return (
     <div className="lg:px-32 px-16 overflow-hidden">
-      <header className=" mt-10 grid-cols-[200px_minmax(900px,_1fr)_100px]">
+      <header className="grid-cols-[200px_minmax(900px,_1fr)_100px]">
         <section className="py-20 relative">
           <div className="lg:w-[45%]">
             <p className="text-gray-500 tracking-tighter text-[3em] font-bold"><span className="text-black">Store.</span> The best way to buy the

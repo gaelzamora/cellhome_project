@@ -1,9 +1,9 @@
-import {Link} from 'react-router-dom'
+import {Link, useLocation, useNavigate, useParams} from 'react-router-dom'
 import {useAuthStore} from '../store/auth'
 import jwt_decode from 'jwt-decode'
 import {HiOutlineShoppingBag, HiSearch} from 'react-icons/hi'
 import cellhome from '../assets/cellhome.png'
-import { Fragment, useState } from 'react'
+import { Fragment, useState, useEffect } from 'react'
 import { Dialog, Disclosure, Transition, Menu } from '@headlessui/react'
 import {
   Bars3Icon,
@@ -27,6 +27,7 @@ const navbarElements = [
 
 function Navbar() {
 
+  const [scroll, setScroll] = useState(true)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [openSearch, setOpenSearch] = useState(false)
   const token: string = useAuthStore.getState().access
@@ -48,8 +49,42 @@ function Navbar() {
     return classes.filter(Boolean).join(' ')
   }
 
+  
+  useEffect(() => {
+    const handleScroll = () => {
+      if(window.scrollY === 0) {
+        setScroll(true)
+      } else {
+        setScroll(false)
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
+
+  const location = useLocation()
+  const {category, slug} = useParams()
+
+  const inProduct = () => {
+    if(category === undefined || slug === undefined) {
+      return 'bg-[#fff]'
+    }
+    else if(location.pathname !== `store/${category}/${slug}`) {
+      return 'bg-[#fff]'
+    }
+    return
+
+  }
+
   return (
-      <header className={`w-screen first-letter fixed top-0bg-[#f5f5f7] z-50 dark:bg-gray-300`} >
+      <header className={`w-screen ${location.pathname === '/' ? 'fixed top-0' : '' } ${scroll ? 'bg-[#F5F5F7]' : 'bg-[#F5F5F7]/80'} 
+      ${location.pathname === '/store/yoursaves' ? 'bg-[#fff]' : '' } transition-all duration-500 z-10 
+      ${inProduct()} `} >
+
         <nav className="flex relative justify-between p-6 h-8 w-screen" aria-label="Global" >
           <div className='w-[80%] flex items-center mx-auto lg:px-8 justify-between'>
             <div className="flex lg:flex-1">
@@ -81,7 +116,8 @@ function Navbar() {
                     {element.name}
                   </HoverableElement>
                 </Link>
-              ))}         
+              ))}
+         
             </div> 
       
             <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:gap-3">
@@ -111,7 +147,7 @@ function Navbar() {
                     leaveFrom="transform opacity-100 scale-100"
                     leaveTo="transform opacity-0 scale-95"
                   >
-                    <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-righ bg-white dark:bg-slate-950 py-1 shadow-lg ring-black ring-opacity-5 focus:outline-none">
+                    <Menu.Items className="absolute right-0 z-50 mt-2 w-48 origin-top-righ bg-white dark:bg-slate-950 py-1 shadow-lg ring-black ring-opacity-5 focus:outline-none">
                       
                       <Menu.Item>
                         {({ active }) => (
@@ -123,7 +159,7 @@ function Navbar() {
                       
                       <Menu.Item>
                         {({ active }) => (
-                          <Link to="/" className={classNames(active ? 'bg-gray-100 dark:bg-slate-700' : '', 'block px-4 py-2 text-sm text-gray-700 dark:text-slate-200')}>
+                          <Link to="store/yoursaves" className={classNames(active ? 'bg-gray-100 dark:bg-slate-700' : '', 'block px-4 py-2 text-sm text-gray-700 dark:text-slate-200')}>
                             Tus selecciones
                           </Link>
                         )}

@@ -4,6 +4,7 @@ import Orders from "../components/Orders"
 import { useState } from "react"
 import {useQuery} from '@tanstack/react-query'
 import {search_products} from '../api/products.ts'
+import Variants from "../components/Variants.tsx"
 
 const AdminPage = () => {
 
@@ -41,25 +42,31 @@ const AdminPage = () => {
                     
                     <div className="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
                         <button 
-                    onClick={() => setShow(0)}
-                    type="button" className="flex items-center justify-center text-white bg-primary-500 hover:bg-primary-600 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
-                          Products
+                        onClick={() => setShow(0)}
+                        type="button" className="flex items-center justify-center text-white bg-primary-500 hover:bg-primary-600 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
+                          Variants
                         </button>
                         <button 
                     onClick={() => setShow(1)}
                     type="button" className="flex items-center justify-center text-white bg-primary-500 hover:bg-primary-600 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
-                          Orders
+                          Products
                         </button>
                         <button 
                     onClick={() => setShow(2)}
+                    type="button" className="flex items-center justify-center text-white bg-primary-500 hover:bg-primary-600 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
+                          Orders
+                        </button>
+                        <button 
+                    onClick={() => setShow(3)}
                     type="button" className="flex items-center justify-center text-white bg-primary-500 hover:bg-primary-600 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
                           Users
                         </button>
                     </div>
                 </div>
-              {show === 0 && <Products results={data}/>}
-              {show === 1 && <Orders/>}
-              {show === 2 && <Users/>}
+                {show === 0 && <Variants />}
+                {show === 1 && <Products results={data}/>}
+                {show === 2 && <Orders/>}
+                {show === 3 && <Users/>}
             </div>
         </div>
     </section>

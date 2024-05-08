@@ -7,7 +7,6 @@ export const search_products = async (query: string) => {
 }
 
 export const get_categorie = async (slug: string ) => {
-    console.log(slug)
     const response = await axi.get(`/products/get_categorie/${slug}`)
     return response.data
 }
@@ -17,8 +16,9 @@ export const get_product_admin = async (id: number) => {
     return response.data
 }
 
-export const get_product = async (slug: string) => {
-    const response = await authAxios.get(`/products/get/${slug}`)
+export const get_product = async (slug_url: string) => {
+    const response = await authAxios.get(`/products/get/${slug_url}`)
+    console.log(response.data)
     return response.data
 }
 

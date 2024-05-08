@@ -2,7 +2,7 @@ import iconMac from '../assets/mac.png'
 import iconIphone from '../assets/iphone.png'
 import iconIpad from '../assets/ipads.png'
 import iconAppleWatch from '../assets/applewatch.png'
-import iconAirPods from '../assets/airpods.png'
+import iconAirPods from '../assets/airpodsbanner.png'
 import iconAccesories from '../assets/accesories.png'
 
 import bgIphone from '../assets/card-1.jpg'
@@ -32,7 +32,7 @@ export const banners = [
     {product: "Apple Watch Series 9", title: "Smarter. Brighter. Mighter.", description: "From $399 or $33.257mo. for 12 mo.*", img: bgAppleWatch, isWhite: false},
     {product: "Macbook Pro 14'' and 16'' ", title: "Mind-blowing. Head-turning.", description: "From $1599 or $133.25/mo. for 12 mo.*", img: bgMac, isWhite: true},
     {product: "Black Unity Sport Band", title: "Unity in bloom.", description: "$49.00", img: bgBlackUnity, isWhite: false},
-    {product: "Ipad", title: "Lovable.Drawable.Magicial", description: "From $449 or $39.41/mo. for 12 mo.*", img: bgIpad, isWhite: true},
+    {product: "Ipad", title: "Lovable. Drawable. Magicial", description: "From $449 or $39.41/mo. for 12 mo.*", img: bgIpad, isWhite: true},
 ]
 
 

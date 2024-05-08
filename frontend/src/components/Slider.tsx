@@ -3,17 +3,17 @@ import {Swiper, SwiperSlide} from 'swiper/react';
 import "swiper/css"
 import { Item, Product } from '../Interfaces';
 import Card from './Card';
+import CardProduct from './CardProduct';
 
 type SliderProps = {
   products?: Product[]
   items?: Item[]
+  category?: any
 }
 
 function Slider(props : SliderProps) {
-  const {products, items} = props
-
-  console.log(products)
-
+  const {products, items, category} = props
+  
   return (
     <div>
       <div>
@@ -58,7 +58,9 @@ function Slider(props : SliderProps) {
               {products ? (
                 <>          
                   {products?.map(product => (
-                    <p>{product.name}</p>
+                    <SwiperSlide key={product.id}>
+                      <CardProduct product={product} category={category}/>
+                    </SwiperSlide>
                   ))}
                 </>
               ) : (
@@ -66,11 +68,7 @@ function Slider(props : SliderProps) {
                   {items?.map(item => (
                     <SwiperSlide key={item.product}>
                       <Card 
-                        product={item.product}
-                        title={item.title} 
-                        description={item.description} 
-                        img={item.img} 
-                        isColor={item.isWhite}
+                        item={item}
                       />
                     </SwiperSlide>
                   ))}

@@ -1,5 +1,5 @@
 export interface Product {
-    id?: number
+    id: number
     name: string
     slug: string
     description: string
@@ -9,7 +9,9 @@ export interface Product {
     category: string
     image: File | null
     quantity?: number
-    num_reviews?: number 
+    num_reviews?: number
+    slug_url: string
+    variants?: Variant[]
 }
 
 export interface Token {
@@ -26,4 +28,13 @@ export interface Item {
     description: string
     img: string
     isWhite: boolean
+}
+
+
+export interface Variant {
+    name: string
+    variant_category: string
+    sku: string
+    stock: number
+    image: File | null
 }

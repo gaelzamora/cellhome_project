@@ -6,7 +6,6 @@ import toast from "react-hot-toast";
 import iconSupport from "../assets/support.jpg";
 import ItemBar from "../components/ItemBar";
 import Slider from "../components/Slider";
-import { Product } from "../Interfaces";
 
 function ItemPage() {
   const { category } = useParams();
@@ -21,11 +20,9 @@ function ItemPage() {
   }
   if (isLoading) return <Loader />;
 
-  console.log(typeof(data))
-  console.log(data)
   return (
     <div className="lg:px-32 px-16 overflow-hidden">
-      <div className="mt-10 grid-cols-[200pxminmax(900px,_2f)_100px]">
+      <div className="grid-cols-[200pxminmax(900px,_2f)_100px]">
         <section className="py-20 relative">
           <div className="lg:w-[45%]">
             <p className="text-gray-800 tracking-tighter text-[3em] font-bold">
@@ -62,7 +59,7 @@ function ItemPage() {
         </p>
         <div className="overflow-x-hidden">
           <div className="sticky top-0 pb-4 mt-4">
-            <Slider products={data} />
+            <Slider products={data} category={category} />
           </div>
         </div>
       </section>
