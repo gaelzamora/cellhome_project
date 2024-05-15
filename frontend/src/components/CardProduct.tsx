@@ -28,18 +28,21 @@ function CardProduct(props : props) {
     }, [])
     
     return (
-        <Link to={`/store/${category}/${product.slug_url}`} className="cursor-pointer max-w-sm bg-white shadow-lg rounded-[1.5rem] flex flex-col p-8 h-[450px] hover:scale-[1.01] hover:shadow-lg transition-all 
-        duration-[400ms]">  
-            <div className="h-20 max-h-20">
+        <Link to={`/store/${category}/${product.slug_url}`} className="cursor-pointer max-w-sm bg-white shadow-lg rounded-[1.5rem] flex flex-col p-8 h-[450px] hover:scale-[1.01]
+        hover:shadow-lg transition-all duration-[400ms]">  
+            <div className="h-20 max-h-10 overflow-y-auto overscroll-auto">
                 <p className="text-[1.6rem] text-gray-600 tracking-tighter font-bold">{product.name}</p>
             </div>
-            <div className="relative">
+            <div className="relative flex">
                 <img src={`${import.meta.env.VITE_BACKEND_URL}${product.image}`} alt="Imagen de Producto"  className="w-[40em]"/>
+                <div className="absolute bg-red-400 h-full w-3 right-0 top-0 ">
+
+                </div>
                 {inFavorite && (
                     <HeartIconSolid onClick={handleChangeStateFavorite(product)} className="w-6 h-6 absolute right-0 bottom-0" />
                 )}
                 {!inFavorite && (
-                    <HeartIcon onClick={handleChangeStateFavorite(product)} className="w-6 h-6 absolute right-0 bottom-0"/>
+                    <HeartIcon onClick={handleChangeStateFavorite(product)} className="w-6 h-6 absolute right-0 bottom-0 flex-1"/>
                 )}
             </div>
             <div className="mt-10 gap-2 flex relative">

@@ -24,6 +24,20 @@ def get_products(request):
     return paginator.get_paginated_response(serializer.data)
 
 @api_view(['GET'])
+def get_all_products(request):
+    products = Product.objects.all()
+    serializer = ProductSerializer(products, many=True)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def get_variations(request):
+    variations = Variation.objects.all()
+    paginator = CustomPagination()
+    paginator_variations = paginator.paginate_queryset(variations, request)
+    serializer = VariantSerializer(paginator_variations, many=True)
+    return paginator.get_paginated_response(serializer.data)    
+
+@api_view(['GET'])
 def get_product(request, slug_url):
     products = Product.objects.get(slug_url=slug_url)
     serializer = ProductSerializer(products, many=False)
@@ -60,17 +74,18 @@ def create_product(request):
         return Response(serializer.data, status=status.HTTP_401_UNAUTHORIZED)
 
 @api_view(['POST'])
-def create_variation(request, pk):
+def create_variation(request):
     if request.user.is_staff:
         serializer = VariantSerializer(data=request.data)
-        product = Product.objects.get(pk=pk)
         if serializer.is_valid():
+            pk = serializer.validated_data['id_product']
+            
             name = serializer.validated_data['name']
 
             if serializer.Meta.model.objects.filter(name=name).exists():
                 return Response(serializer.data, status.HTTP_400_BAD_REQUEST)
 
-            serializer.save(user=request.user, id_product=product, name=name)
+            serializer.save(user=request.user, id_product=pk, name=name)
 
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
@@ -78,10 +93,10 @@ def create_variation(request, pk):
         return Response(serializer.data, status=status.HTTP_401_UNAUTHORIZED)
 
 @api_view(['GET'])
-def get_variations(request):
-    variations = Variation.objects.all()
+def get_variations_product(request, pk):
+    variations = Variation.objects.filter(id_product=pk)
     serializer = VariantSerializer(variations, many=True)
-    return Response(serializer.data)
+    return Response(serializer.data, status=status.HTTP_200_OK)
 
 @api_view(['PUT'])
 def edit_product(request, pk):

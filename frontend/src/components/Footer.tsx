@@ -54,7 +54,7 @@ const navigation = {
 
 function Footer(){
     return(
-        <footer className="bg-white shadow-lg">
+        <footer className="bg-white shadow-lg mt-10">
             
             <div className="mx-auto max-w-full py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
             <div className="xl:grid xl:grid-cols-3 xl:gap-8">

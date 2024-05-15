@@ -1,22 +1,24 @@
 import { Variant } from "../Interfaces";
 import {axi, authAxios} from "./useAxios"
 
-export const post_variant = async (data: Variant, pk: number) => {
+export const post_variant = async (data: Variant) => {
     const formData = new FormData()
     formData.append("name", data.name)
-    formData.append("variant_category", data.variant_category)
-    formData.append("sku", data.sku)
+    formData.append("variation_category", data.variation_category)
+    formData.append("sku", data.sku.toString())
     formData.append("stock", data.stock.toString())
+    formData.append("id_product", data.id_product.toString())
 
     if(data.image) {
         formData.append("image", data.image)
     }
 
-    await authAxios.post(`/products/post/variation/${pk}/`, formData)
-}
+    console.log(formData)
 
-export const get_variations = async () => {
-    const response = await axi.get('/products/variations/')
+    await authAxios.post(`/products/post/variation/`, formData)
+}
+export const get_variations = async ({pageParam = 1}) => {
+    const response = await axi.get(`/products/variations/?page=${pageParam}&pages=9`)
     return response.data
 }
 

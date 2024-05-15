@@ -18,6 +18,7 @@ class VariantSerializer(serializers.ModelSerializer):
         model = Variation
         fields = "__all__"
 
+
 class ProductSerializer(serializers.ModelSerializer):
     reviews = serializers.SerializerMethodField(read_only=True)
 

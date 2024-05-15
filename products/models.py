@@ -24,19 +24,12 @@ class Reviews(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
 
-variation_category_choice = {
-    #Fundas y accesorios
-    ('modelo', 'modelo'),   
-    #Equipo de celulares
-    ('color', 'color'),
-    ('capacidad', 'capacidad')
-}
 
 
 class Variation(models.Model):
     id_product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    variation_category = models.CharField(max_length=100, choices=variation_category_choice, null=True)
+    variation_category = models.CharField(max_length=100, null=True)
     name = models.CharField(max_length=255, null=True)
     sku = models.CharField(max_length=50, null=True)
     stock = models.IntegerField(default=0)

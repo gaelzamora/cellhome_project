@@ -48,8 +48,7 @@ const Products = ({results}: Props) => {
     }
   });
 
-
-  if (deleteProdMutation.isLoading) return <Loader />
+  if(isLoading) return <Loader />
   if (error instanceof Error) return <>{toast.error(error.message)}</>
   return (
     <div className="overflow-x-auto">

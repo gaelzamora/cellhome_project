@@ -13,6 +13,7 @@ import EditProductPage from './pages/EditProductPage'
 import './index.css'
 import WishList from './pages/WishList'
 import ProductPage from './pages/ProductPage'
+import AddVariationPage from './pages/AddVariationPage'
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
           <Route path='admin' element={<AdminPrivateRoute />} >
             <Route index element={<AdminPage />} />
             <Route path='add' element={<AddProductPage />} />
+            <Route path='addVariation' element={<AddVariationPage />} />
             <Route path='edit/:id' element={<EditProductPage />} />
           </Route>
         </Route>

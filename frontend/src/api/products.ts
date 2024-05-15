@@ -27,6 +27,11 @@ export const get_products = async ({pageParam = 1}) => {
     return response.data
 }
 
+export const get_all_products = async () => {
+    const response = await axi.get('/products/all_products/')
+    return response.data
+}
+
 export const edit_product = async (data: Product) => {
     const formData = new FormData()
     formData.append("name", data.name)
@@ -52,10 +57,12 @@ export const post_product = async (data: Product) => {
     if(data.image){
         formData.append("image", data.image)
     }
+    console.log(formData)
     await authAxios.post(
         '/products/post/',
         formData
     )
+
 }
 
 

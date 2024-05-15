@@ -32,9 +32,11 @@ export interface Item {
 
 
 export interface Variant {
+    id?: number
     name: string
-    variant_category: string
-    sku: string
+    id_product: number
+    variation_category: string
+    sku: number
     stock: number
     image: File | null
 }
