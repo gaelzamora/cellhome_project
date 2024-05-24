@@ -13,20 +13,9 @@ export const post_variant = async (data: Variant) => {
         formData.append("image", data.image)
     }
 
-    console.log(formData)
-
     await authAxios.post(`/products/post/variation/`, formData)
 }
-export const get_variations = async ({pageParam = 1}) => {
-    const response = await axi.get(`/products/variations/?page=${pageParam}&pages=9`)
-    return response.data
-}
 
-// azul
-// 128 gb
-// 10
-
-// Select an option
-// -- iPhone 13 0
-// -- iPAd mini 1
-// -- Airpods 2
+export const delete_variation = async (pk: number) => {
+    await authAxios.delete(`/products/delete_variant/${pk}/`)
+}   

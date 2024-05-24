@@ -1,8 +1,3 @@
-import { useInfiniteQuery } from "@tanstack/react-query"
-import { get_products } from "../api/products"
-import { useEffect } from "react"
-import toast from "react-hot-toast"
-import { useInView } from "react-intersection-observer"
 import iconSupport from '../assets/support.jpg'
 import Slider from "../components/Slider"
 import { Link } from "react-router-dom"
@@ -11,23 +6,6 @@ import { banners } from "../ts/data"
 import { categories } from "../ts/data"
 
 function StorePage() {
-
-  const {inView} = useInView()
-  
-  useEffect(() => {
-    if(inView){
-      fetchNextPage()
-    }
-  }, [inView])
-  
-  const {
-    error,
-    fetchNextPage,
-  } = useInfiniteQuery(['products'], get_products, {
-    getNextPageParam: (page: any) => page.meta.next,
-  })
-
-  if(error instanceof Error) return <>{toast.error(error.message)}</>
   return (
     <div className="lg:px-32 px-16 overflow-hidden">
       <header className="grid-cols-[200px_minmax(900px,_1fr)_100px]">

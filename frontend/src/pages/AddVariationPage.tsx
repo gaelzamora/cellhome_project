@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import {Link} from 'react-router-dom'
 import { Loader } from '../components/Loader';
 import { post_variant } from '../api/variants';
-import { get_all_products } from '../api/products';
+import { get_products } from '../api/products';
 import { Product } from '../Interfaces';
 
 
@@ -33,7 +33,7 @@ function AddVariationPage() {
         isError,
     } = useQuery({
         queryKey: ["products"], 
-        queryFn: get_all_products,
+        queryFn: get_products,
     })
 
     const AddVariationMut = useMutation({

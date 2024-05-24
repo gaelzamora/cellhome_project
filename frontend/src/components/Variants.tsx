@@ -1,38 +1,42 @@
-import { BsFillTrashFill } from "react-icons/bs";
 import { AiFillEdit, AiFillPlusSquare } from "react-icons/ai";
 import {Link} from 'react-router-dom'
-import { useInfiniteQuery, useQuery, useQueryClient } from "@tanstack/react-query";
-import { get_variations } from "../api/variants";
+import {  useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Loader } from "./Loader";
 import toast from "react-hot-toast";
-import { useInView } from "react-intersection-observer";
-import { useEffect } from "react";
 import { Product, Variant } from "../Interfaces";
+import { get_products } from "../api/products";
+import { delete_variation } from "../api/variants";
+import { BsFillTrashFill } from "react-icons/bs";
 
 const Products = () => {
-  const {ref, inView} = useInView()
 
-  useEffect(() => {
-    if(inView) {
-      fetchNextPage()
-    }
-  }, [])
+  const queryClient = useQueryClient()
 
   const {
     data, 
     isLoading, 
-    error, 
-    isFetchingNextPage, 
-    fetchNextPage, 
-    hasNextPage
-  } = useInfiniteQuery(['variations'], get_variations, {
-      getNextPageParam: (page: any) => page.meta.next,
-    })
+    error 
+  } = useQuery(
+    {
+      queryKey: ['variations'],
+      queryFn: get_products
+    }
+  )
+
+  const deleteVariationMutation = useMutation({
+    mutationFn: delete_variation,
+    onSuccess: () => {
+      queryClient.invalidateQueries({queryKey: ["variations"]})
+      toast.success("Varation deleted!")
+    },
+    onError: () => {
+      toast.error("Error")
+    }
+  })
 
 
   if(isLoading) return <Loader />
   if(error instanceof Error) return toast.error(error.message)
-    console.log(data)
 
   return (
     <div className="overflow-x-auto">
@@ -56,42 +60,67 @@ const Products = () => {
           </tr>
         </thead>
 
-        {data?.pages.map((page: any) => (
-          <>
-            <tbody key={page.meta.next}>
-              {page.data.map((variant: Variant) => (
-                <tr className="border-b dark:border-gray-700">
-                  <th
-                    scope="row"
-                    className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                  >
-                    {variant.id}
-                  </th>
+            <tbody>
+              {data.map((product: Product) => (
+                <>
+                  {product.variants?.map((variant: Variant) => (
+                    <tr className="border-b dark:border-gray-700">
+                      <th
+                        scope="row"
+                        className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                      >
+                        {variant.id}
+                      </th>
 
-                  <td className="px-4 py-3">
-                    {variant.name}
-                  </td>
+                      <td className="px-4 py-3">
+                        {variant.name}
+                      </td>
 
-                  <td className="px-4 py-3">
-                    {variant.variation_category}
-                  </td>
+                      <td className="px-4 py-3">
+                        {variant.variation_category}
+                      </td>
 
-                  <td className="px-4 py-3">
-                    {variant.id_product}
-                  </td>                  
-                  <td className="px-4 py-3">
-                    {variant.stock}
-                  </td>
+                      <td className="px-4 py-3">
+                        {variant.id_product}
+                      </td>                  
+                      <td className="px-4 py-3">
+                        {variant.stock}
+                      </td>
 
-                  <td className="px-4 py-3">
-                    <img src={`${import.meta.env.VITE_BACKEND_URL}${variant.image}`} alt="Not image" className="text-center rounded-full w-10 h-10"/>
-                  </td>
+                      <td className="px-4 py-3">
+                        <img src={`${import.meta.env.VITE_BACKEND_URL}${variant.image}`} alt="Not image" className="text-center rounded-full w-10 h-10"/>
+                      </td>
 
-                </tr>
+                      <td className="px-4 py-3">
+                                                <div className="flex justify-center gap-4">
+                                                    <BsFillTrashFill
+                                                        onClick={() => {
+                                                            if (
+                                                                variant.id !==
+                                                                undefined
+                                                            ) {
+                                                                deleteVariationMutation.mutate(
+                                                                    variant.id
+                                                                );
+                                                            }
+                                                        }}
+                                                        size={22}
+                                                        className="text-red-300 cursor-pointer"
+                                                    />
+
+                                                    <Link to={`edit/${variant.id}`}>
+                                                        <AiFillEdit
+                                                            size={22}
+                                                            className="text-green-500 cursor-pointer"
+                                                        />
+                                                    </Link>
+                                                </div>
+                                            </td>
+                    </tr>
+                  ))}
+                </>
               ))}
             </tbody>
-          </>
-        ))}
 
       </table>
     </div>

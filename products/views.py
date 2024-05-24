@@ -1,9 +1,8 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
-from .models import Product, Variation
-from .serializers import ProductSerializer, VariantSerializer
-from backend.pagination import CustomPagination
+from .models import Product, Variation, Image
+from .serializers import ProductSerializer, VariantSerializer, ImageSerializer
 from django.utils.text import slugify
 
 @api_view(['GET'])
@@ -18,10 +17,8 @@ def search_products(request):
 @api_view(['GET'])
 def get_products(request):
     products = Product.objects.all()
-    paginator = CustomPagination()
-    paginated_products = paginator.paginate_queryset(products, request)
-    serializer = ProductSerializer(paginated_products, many=True)
-    return paginator.get_paginated_response(serializer.data)
+    serializer = ProductSerializer(products, many=True)
+    return Response(serializer.data)
 
 @api_view(['GET'])
 def get_all_products(request):
@@ -29,13 +26,6 @@ def get_all_products(request):
     serializer = ProductSerializer(products, many=True)
     return Response(serializer.data)
 
-@api_view(['GET'])
-def get_variations(request):
-    variations = Variation.objects.all()
-    paginator = CustomPagination()
-    paginator_variations = paginator.paginate_queryset(variations, request)
-    serializer = VariantSerializer(paginator_variations, many=True)
-    return paginator.get_paginated_response(serializer.data)    
 
 @api_view(['GET'])
 def get_product(request, slug_url):
@@ -91,12 +81,20 @@ def create_variation(request):
         return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
     else:
         return Response(serializer.data, status=status.HTTP_401_UNAUTHORIZED)
+    
+@api_view(['POST'])
+def create_image(request):
+    if request.user.is_staff:
+        serializer = ImageSerializer(data=request.data)
+        if serializer.is_valid():
+            pk = serializer.validated_data['id_product']
 
-@api_view(['GET'])
-def get_variations_product(request, pk):
-    variations = Variation.objects.filter(id_product=pk)
-    serializer = VariantSerializer(variations, many=True)
-    return Response(serializer.data, status=status.HTTP_200_OK)
+            serializer.save(user=request.user, id_product=pk)
+
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
+    else:
+        return Response(serializer.data, status=status.HTTP_401_UNAUTHORIZED)
 
 @api_view(['PUT'])
 def edit_product(request, pk):
@@ -115,6 +113,24 @@ def delete_product(request, pk):
     product = Product.objects.get(pk=pk)
     if request.user.is_staff:
         product.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    else:
+        return Response(status=status.HTTP_401_UNAUTHORIZED)
+    
+@api_view(['DELETE'])
+def delete_image(request, pk):
+    image = Image.objects.get(pk=pk)
+    if request.user.is_staff:
+        image.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+    else:
+        return Response(status=status.HTTP_401_UNAUTHORIZED)
+
+@api_view(['DELETE'])
+def delete_variant(request, pk):
+    variant = Variation.objects.get(pk=pk)
+    if request.user.is_staff:
+        variant.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
     else:
         return Response(status=status.HTTP_401_UNAUTHORIZED)

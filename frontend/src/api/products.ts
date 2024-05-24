@@ -22,15 +22,11 @@ export const get_product = async (slug_url: string) => {
     return response.data
 }
 
-export const get_products = async ({pageParam = 1}) => {
-    const response = await axi.get(`/products/?page=${pageParam}&pages=9`)
+export const get_products = async () => {
+    const response = await axi.get(`/products/`)
     return response.data
 }
 
-export const get_all_products = async () => {
-    const response = await axi.get('/products/all_products/')
-    return response.data
-}
 
 export const edit_product = async (data: Product) => {
     const formData = new FormData()

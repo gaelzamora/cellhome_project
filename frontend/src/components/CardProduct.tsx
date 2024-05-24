@@ -1,9 +1,5 @@
-import { Product } from "../Interfaces"
+import { Product, Variant } from "../Interfaces"
 import { Link } from "react-router-dom"
-import { useFavoriteStore } from "../store/favorite"
-import { useEffect, useState } from "react"
-import { HeartIcon } from "@heroicons/react/24/outline"
-import { HeartIcon as HeartIconSolid } from "@heroicons/react/20/solid"
 
 type props = {
     product: Product
@@ -11,22 +7,11 @@ type props = {
 }
 
 function CardProduct(props : props) {
-    const changeStateFavorite = useFavoriteStore(state => state.changeStateFavorite)
-    const in_favorite = useFavoriteStore(state => state.inFavorite)
-    const [inFavorite, setInFavorite] = useState(false)
-
-    const handleChangeStateFavorite = (product: Product) => () => {
-        setInFavorite(!inFavorite)
-        changeStateFavorite(product)
-    }
+    
 
     const {product, category} = props
 
-    useEffect(() => {
-        const state = in_favorite(product)
-        setInFavorite(state)
-    }, [])
-    
+
     return (
         <Link to={`/store/${category}/${product.slug_url}`} className="cursor-pointer max-w-sm bg-white shadow-lg rounded-[1.5rem] flex flex-col p-8 h-[450px] hover:scale-[1.01]
         hover:shadow-lg transition-all duration-[400ms]">  
@@ -35,15 +20,12 @@ function CardProduct(props : props) {
             </div>
             <div className="relative flex">
                 <img src={`${import.meta.env.VITE_BACKEND_URL}${product.image}`} alt="Imagen de Producto"  className="w-[40em]"/>
-                <div className="absolute bg-red-400 h-full w-3 right-0 top-0 ">
-
+                <div className="absolute h-full w-10 right-0 top-0 pt-2 pb-2">
+                    {product.variants?.map((variant: Variant) => (
+                        <img src={`${import.meta.env.VITE_BACKEND_URL}${variant.image}`} alt="Image" className="w-8 h-8 rounded-[100%] justify-center items-center" />
+                    ))}
+                    
                 </div>
-                {inFavorite && (
-                    <HeartIconSolid onClick={handleChangeStateFavorite(product)} className="w-6 h-6 absolute right-0 bottom-0" />
-                )}
-                {!inFavorite && (
-                    <HeartIcon onClick={handleChangeStateFavorite(product)} className="w-6 h-6 absolute right-0 bottom-0 flex-1"/>
-                )}
             </div>
             <div className="mt-10 gap-2 flex relative">
                 <p className="text-[0.9rem] text-gray-700 max-w-[75%] font-semibold">{product.description}</p>

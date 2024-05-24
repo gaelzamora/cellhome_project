@@ -12,6 +12,8 @@ export interface Product {
     num_reviews?: number
     slug_url: string
     variants?: Variant[]
+    images: Image[]
+    num_images: number
 }
 
 export interface Token {
@@ -32,11 +34,16 @@ export interface Item {
 
 
 export interface Variant {
-    id?: number
+    id: number
     name: string
     id_product: number
     variation_category: string
     sku: number
     stock: number
+    image: File | null
+}
+export interface Image {
+    id: number
+    id_product: number 
     image: File | null
 }

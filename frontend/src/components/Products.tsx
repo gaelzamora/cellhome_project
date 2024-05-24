@@ -3,11 +3,8 @@ import { AiFillEdit, AiFillPlusSquare } from "react-icons/ai";
 import {Link} from 'react-router-dom'
 import {delete_product, get_products} from '../api/products'
 import {toast} from 'react-hot-toast'
-import {useQueryClient, useMutation} from '@tanstack/react-query'
+import {useQueryClient, useMutation, useQuery} from '@tanstack/react-query'
 import {Loader} from './Loader'
-import { useInView } from "react-intersection-observer";
-import { useInfiniteQuery } from "@tanstack/react-query"
-import { useEffect } from "react";
 import { Product } from "../Interfaces";
 
 interface Props {
@@ -15,119 +12,58 @@ interface Props {
 }
 
 const Products = ({results}: Props) => {
-  const {ref, inView} = useInView()
 
-  useEffect(() => {
-    if(inView){
-      fetchNextPage()
-    }
-  }, [inView])
+    const queryClient = useQueryClient()
 
-  const queryClient = useQueryClient()
-
-  const {
-    data, 
-    isLoading, 
-    error, 
-    isFetchingNextPage, 
-    fetchNextPage, 
-    hasNextPage
-  } = useInfiniteQuery(['products'], get_products, {
-      getNextPageParam: (page: any) => page.meta.next,
+    const {
+        data, 
+        isLoading, 
+        error
+    } = useQuery({
+        queryKey: ['products'],
+        queryFn: get_products
     })
 
 
-  const deleteProdMutation = useMutation({
-    mutationFn: delete_product,
-    onSuccess: () => {
-        queryClient.invalidateQueries({queryKey: ["products"]})
-        toast.success("Product deleted!")
-    },
-    onError: () => {
-        toast.error("Error!")
-    }
-  });
+    const deleteProdMutation = useMutation({
+        mutationFn: delete_product,
+        onSuccess: () => {
+            queryClient.invalidateQueries({queryKey: ["products"]})
+            toast.success("Product deleted!")
+        },
+        onError: () => {
+            toast.error("Error!")
+        }
+    });
 
-  if(isLoading) return <Loader />
-  if (error instanceof Error) return <>{toast.error(error.message)}</>
+
+    if(isLoading) return <Loader />
+    if (error instanceof Error) return <>{toast.error(error.message)}</>
+    
   return (
-    <div className="overflow-x-auto">
-      <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-          <tr>
-            <th scope="col" className="px-4 py-3">Product ID</th>
-            <th scope="col" className="px-4 py-3">Nombre</th>
-            <th scope="col" className="px-4 py-3">Precio</th>
-            <th scope="col" className="px-4 py-3">Disponible</th>
-            <th scope="col" className="px-4 py-3 flex justify-center gap-4">Actions
-            <Link
-                to="add"
-              >
-              <AiFillPlusSquare size={22} className="text-green-300 cursor-pointer" />
-            </Link>
-            </th>
-          </tr>
-        </thead>
-        {results && results.products.length > 0 ? (
-                    <>
-                        {results &&
-                            results.products.map((product: Product) => (
-                                <tbody>
-                                    <tr className="border-b dark:border-gray-700">
-                                        <th
-                                            scope="row"
-                                            className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-                                        >
-                                            {product.id}
-                                        </th>
-
-                                        <td className="px-4 py-3">
-                                            {product.name}
-                                        </td>
-
-                                        <td className="px-4 py-3">
-                                            $ {product.price}
-                                        </td>
-
-                                        <td className="px-4 py-3">
-                                            {product.count_in_stock}
-                                        </td>
-
-                                        <td className="px-4 py-3">
-                                            <div className="flex justify-center gap-4">
-                                                <BsFillTrashFill
-                                                    onClick={() => {
-                                                        if (
-                                                            product.id !==
-                                                            undefined
-                                                        ) {
-                                                            deleteProdMutation.mutate(
-                                                                product.id
-                                                            );
-                                                        }
-                                                    }}
-                                                    size={22}
-                                                    className="text-red-300 cursor-pointer"
-                                                />
-
-                                                <Link to={`edit/${product.id}`}>
-                                                    <AiFillEdit
-                                                        size={22}
-                                                        className="text-green-500 cursor-pointer"
-                                                    />
-                                                </Link>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            ))}
-                    </>
-                ) : (
-                    <>
-                        {data?.pages.map((page: any) => (
-                            <>
-                                <tbody key={page.meta.next}>
-                                    {page.data.map((product: Product) => (
+        <div className="overflow-x-auto">
+        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+            <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+                <th scope="col" className="px-4 py-3">Product ID</th>
+                <th scope="col" className="px-4 py-3">Nombre</th>
+                <th scope="col" className="px-4 py-3">Precio</th>
+                <th scope="col" className="px-4 py-3">Disponible</th>
+                <th scope="col" className="px-4 py-3">Image's</th>
+                <th scope="col" className="px-4 py-3 flex justify-center gap-4">Actions
+                <Link
+                    to="add"
+                >
+                <AiFillPlusSquare size={22} className="text-green-300 cursor-pointer" />
+                </Link>
+                </th>
+            </tr>
+            </thead>
+            {results && results.products.length > 0 ? (
+                        <>
+                            {results &&
+                                results.products.map((product: Product) => (
+                                    <tbody>
                                         <tr className="border-b dark:border-gray-700">
                                             <th
                                                 scope="row"
@@ -149,6 +85,10 @@ const Products = ({results}: Props) => {
                                             </td>
 
                                             <td className="px-4 py-3">
+                                                <img src={`${import.meta.env.VITE_BACKEND_URL}${product.image}`} alt="Not image" className="text-center rounded-full w-10 h-10 "/>
+                                            </td>
+
+                                            <td className="px-4 py-3">
                                                 <div className="flex justify-center gap-4">
                                                     <BsFillTrashFill
                                                         onClick={() => {
@@ -165,9 +105,7 @@ const Products = ({results}: Props) => {
                                                         className="text-red-300 cursor-pointer"
                                                     />
 
-                                                    <Link
-                                                        to={`edit/${product.id}`}
-                                                    >
+                                                    <Link to={`edit/${product.id}`}>
                                                         <AiFillEdit
                                                             size={22}
                                                             className="text-green-500 cursor-pointer"
@@ -176,30 +114,76 @@ const Products = ({results}: Props) => {
                                                 </div>
                                             </td>
                                         </tr>
-                                    ))}
-                                </tbody>
+                                    </tbody>
+                                ))}
+                        </>
+                    ) : (
+                                    <tbody>
+                                        {data.map((product: Product) => (
+                                            <tr className="border-b dark:border-gray-700">
+                                                <th
+                                                    scope="row"
+                                                    className="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                                                >
+                                                    {product.id}
+                                                </th>
 
-                                {!isLoading && data?.pages.length === 0 && (
-                                    <p className="text-xl text-slate-800 dark:text-slate-200">
-                                        No more results
-                                    </p>
-                                )}
-                                {!isLoading &&
-                                    data?.pages?.length !== undefined &&
-                                    data.pages.length > 0 &&
-                                    hasNextPage && (
-                                        <div ref={ref}>
-                                            {isLoading || isFetchingNextPage ? (
-                                                <Loader />
-                                            ) : null}
-                                        </div>
-                                    )}
-                            </>
-                        ))}
-                    </>
-                )}
-      </table>
-    </div>
+                                                <td className="px-4 py-3">
+                                                    {product.name}
+                                                </td>
+
+                                                <td className="px-4 py-3">
+                                                    $ {product.price}
+                                                </td>
+
+                                                <td className="px-4 py-3">
+                                                    {product.count_in_stock}
+                                                </td>
+
+                                                <td className="px-4 py-3">
+                                                    <Link to={`add_images/${product.slug_url}/`}>
+                                                        <img src={`${import.meta.env.VITE_BACKEND_URL}${product.image}`} alt="Not image" 
+                                                            className="text-center rounded-full w-10 h-10 hover:opacity-50 transition-all delay-[50] cursor-pointer"
+                                                        />
+                                                    </Link>
+                                                </td>
+
+                                                <td className="px-4 py-3">
+                                                    <div className="flex justify-center gap-4">
+                                                        <BsFillTrashFill
+                                                            onClick={() => {
+                                                                if (
+                                                                    product.id !==
+                                                                    undefined
+                                                                ) {
+                                                                    deleteProdMutation.mutate(
+                                                                        product.id
+                                                                    );
+                                                                }
+                                                            }}
+                                                            size={22}
+                                                            className="text-red-300 cursor-pointer"
+                                                        />
+
+                                                        <Link
+                                                            to={`edit/${product.id}`}
+                                                        >
+                                                            <AiFillEdit
+                                                                size={22}
+                                                                className="text-green-500 cursor-pointer"
+                                                            />
+                                                        </Link>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                    )}
+
+        </table>
+        
+        </div>
+        
   )
 }
 
