@@ -2,7 +2,7 @@ import { Product } from "../Interfaces";
 import { axi, authAxios } from "./useAxios";
 
 export const search_products = async (query: string) => {
-    const response = await authAxios.get(`/products/search_products/?query=${query}`)
+    const response = await axi.get(`/products/search_products/?query=${query}`)
     return response.data
 }
 
@@ -12,13 +12,12 @@ export const get_categorie = async (slug: string ) => {
 }
 
 export const get_product_admin = async (id: number) => {
-    const response = await authAxios.get(`/products/get/admin/${id}`)
+    const response = await axi.get(`/products/get/admin/${id}`)
     return response.data
 }
 
 export const get_product = async (slug_url: string) => {
-    const response = await authAxios.get(`/products/get/${slug_url}`)
-    console.log(response.data)
+    const response = await axi.get(`/products/get/${slug_url}`)
     return response.data
 }
 

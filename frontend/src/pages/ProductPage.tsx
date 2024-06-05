@@ -3,17 +3,19 @@ import { useParams } from "react-router-dom";
 import { get_product } from "../api/products";
 import toast from "react-hot-toast";
 import { Loader } from "../components/Loader";
-import { Product } from "../Interfaces";
+import { Image, Product } from "../Interfaces";
 import { useEffect, useState } from "react";
 import { useFavoriteStore } from "../store/favorite";
 import { HeartIcon } from "@heroicons/react/24/outline"
 import { HeartIcon as HeartIconSolid } from "@heroicons/react/20/solid"
+import ImagesPills from "../components/ImagesPills";
 
 function ProductPage() {
     const [colorSelected, setColorSelected] = useState<number | null>(null)
     const changeStateFavorite = useFavoriteStore(state => state.changeStateFavorite)
     const in_favorite = useFavoriteStore(state => state.inFavorite)
     const [inFavorite, setInFavorite] = useState(false)
+    const [currentImage, setCurrentImage] = useState<File | null>(null)
 
     const handleChangeStateFavorite = (product: Product) => () => {
         setInFavorite(!inFavorite)
@@ -27,7 +29,8 @@ function ProductPage() {
         queryFn: () => get_product(slug || ''),
     })
 
-    
+    if(!currentImage) setCurrentImage(data.image)
+
     const changeColorSelected = (id: any ) => {
         setColorSelected(id)
     }
@@ -38,27 +41,24 @@ function ProductPage() {
     if (isError) return toast.error("Error!")
     if (isLoading) return <Loader />
 
-    useEffect(() => {
-        const state = in_favorite(data)
-        setInFavorite(state)
-    }, [])
-
 
     return (
         <div className="mx-auto md:flex py-5 w-[60%] shadow-lg my-6 relative h-[660px]">
             <div className="flex-1"/>
-            <div className="absolute max-w-[500px] -left-14 shadow-lg top-12 rounded-lg bg-white">
-                <img src={`${import.meta.env.VITE_BACKEND_URL}${data.image}`} alt="Image Product" className="relative"/>
+            <div className="absolute max-w-[500px] -left-14 shadow-lg top-10 rounded-lg bg-white">
+                <img src={`${import.meta.env.VITE_BACKEND_URL}${currentImage}`} alt="Image Product" className="relative w-screen bg-cover"/>
                 {inFavorite && (
-                        <HeartIconSolid onClick={handleChangeStateFavorite(data)} className="w-6 h-6 absolute top-5 right-5" />
+                    <HeartIconSolid onClick={handleChangeStateFavorite(data)} className="w-6 h-6 absolute top-5 right-5" />
                 )}
                 {!inFavorite && (
                     <HeartIcon onClick={handleChangeStateFavorite(data)} className="w-6 h-6 absolute top-5 right-5"/>
                 )} 
-                <div className="py-10 px-5 w-full overflow-x-scroll">Imagenes</div>
+                <div className="py-8 px-5 grid grid-cols-[auto, 1fr] flex-grow-0 overflow-auto">
+                    <ImagesPills images={data.images} mainImage={data.image} seletectedImage={data.image} setCurrentImage={setCurrentImage}/>
+                </div>
             </div>
 
-            <section className="flex-1 -ml-40 my-10 h-[88%] text-red-700 relative ">
+            <section className="flex-1 -ml-40 my-12 h-[88%] text-red-700 relative ">
                 <p className="text-4xl tracking-tighter text-gray-600">{data.name}</p>
                 <p className="text-[0.8em] text-gray-400 font-semibold mb-4 mt-4">{data.category}</p>
                 <div className="flex tracking-tighter"> 

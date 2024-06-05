@@ -109,7 +109,7 @@ function Navbar() {
                 <Bars3Icon className="h-6 w-6 text-white" aria-hi="true" />
               </button>
             </div>
-            <div className='hidden md:flex gap-x-12'>
+            <div className='hidden xl:flex gap-x-12'>
               {navbarElements.map((element: any) => (
                 <Link to={element.to} className={`nav`}>
                   <HoverableElement>
@@ -120,7 +120,7 @@ function Navbar() {
          
             </div> 
       
-            <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:gap-3">
+            <div className="flex lg:flex-1 lg:justify-end lg:gap-3">
               <div className='flex'>
                 <button
                   type="button"
@@ -128,11 +128,11 @@ function Navbar() {
                   onClick={() => setOpenSearch(true)}
                 >
                   <span className="sr-only">Open main menu</span>
-                  <HiSearch className={`h-[1.2rem] w-[1.2rem] text-gray-700`} aria-hi="true"/>
+                  <HiSearch className={`h-[1.2rem] w-[1.2rem] text-gray-700 hidden lg:flex`} aria-hi="true"/>
                 </button>
               </div>
               
-              <Menu as="div" className="relative ml-2">
+              <Menu as="div" className="relative ml-2 text-gray-900">
                   <div>
                     <Menu.Button className={`text-gray-700 hover:text-black dark:text-slate-200 dark:hover:text-white`}>
                       <HiOutlineShoppingBag size={18} />
@@ -238,11 +238,11 @@ function Navbar() {
                           />
                         </Disclosure.Button>
                         <Disclosure.Panel className="mt-2 space-y-2">
-                          {store.map((item) => (
+                          {navbarElements.map((item) => (
                             <Disclosure.Button
                               key={item.name}
                               as="a"
-                              href={item.href}
+                              href={item.to}
                               className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                             >
                               {item.name}
@@ -252,31 +252,7 @@ function Navbar() {
                       </>
                     )}
                   </Disclosure>
-                  <Disclosure as="div" className="-mx-3">
-                    {({ open }) => (
-                      <>
-                        <Disclosure.Button className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
-                          iPhone
-                          <ChevronDownIcon
-                            className={classNames(open ? 'rotate-180' : '', 'h-5 w-5 flex-none')}
-                            aria-hidden="true"
-                          />
-                        </Disclosure.Button>
-                        <Disclosure.Panel className="mt-2 space-y-2">
-                          {[...iphone].map((item) => (
-                            <Disclosure.Button
-                              key={item.name}
-                              as="a"
-                              href={item.href}
-                              className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                            >
-                              {item.name}
-                            </Disclosure.Button>
-                          ))}
-                        </Disclosure.Panel>
-                      </>
-                    )}
-                  </Disclosure>
+                  
                   <a
                     href="#"
                     className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"

@@ -7,10 +7,6 @@ const Layout = ()  => {
   const location = useLocation()
   const {category, slug} = useParams()
 
-  if(location.pathname === `/store/${category}/${slug}`) {
-    console.log("Estas")
-  }
-
   return (
     <div className={`${location.pathname !== '/store/yoursaves' ? 'bg-[#F5F5F7]' : 'bg-[#fff]'} 
     ${location.pathname !== `/store/${category}/slug` ? 'bg-[#fff]' : ''}`}>
