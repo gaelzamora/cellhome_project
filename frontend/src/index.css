@@ -4,7 +4,7 @@
 
 @font-face {
   font-family: 'San Francisco';
-  src: url('../src/fonts/SFPRODISPLAYBOLD.OTF') format('truetype');
+  src: url('../src/fonts/sf-pro-text_regular.woff2') format('truetype');
 }
 
 @layer utilities {
@@ -18,4 +18,14 @@
     @apply w-[100%]
   }
   
+}
+
+.no-arrows {
+  -webkit-appearance: none; /* Safari and Chrome */
+  -moz-appearance: textfield; /* Firefox */
+}
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  @apply no-arrows;
 }

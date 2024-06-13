@@ -6,6 +6,7 @@ export const search_products = async (query: string) => {
     return response.data
 }
 
+
 export const get_categorie = async (slug: string ) => {
     const response = await axi.get(`/products/get_categorie/${slug}`)
     return response.data

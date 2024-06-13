@@ -15,8 +15,10 @@ import WishList from './pages/WishList'
 import ProductPage from './pages/ProductPage'
 import AddVariationPage from './pages/AddVariationPage'
 import AddImagesProduct from './pages/AddImagesProduct'
+import CartPage from './pages/CartPage'
 
 function App() {
+
   return (
     <BrowserRouter>
       <Routes>
@@ -27,6 +29,7 @@ function App() {
             <Route path=':category' element={<ItemPage />} />
             <Route path=':category/:slug' element={<ProductPage />} />
             <Route path='yoursaves' element={<WishList />} />
+            <Route path='bag' element={<CartPage />} />
           </Route>
           <Route path='admin' element={<AdminPage />} />
           <Route path='add' element={<AddProductPage />} />

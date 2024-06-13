@@ -25,11 +25,14 @@ const navbarElements = [
   {name: 'Support', to:'/', id:7},
 ]
 
-function Navbar() {
+type navbarProps = {
+  openSearch: boolean
+  setOpenSearch: (state: boolean) => void
+}
 
+function Navbar({openSearch, setOpenSearch}: navbarProps) {
   const [scroll, setScroll] = useState(true)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [openSearch, setOpenSearch] = useState(false)
   const token: string = useAuthStore.getState().access
   const {isAuth} = useAuthStore()
 
@@ -80,8 +83,9 @@ function Navbar() {
 
   }
 
+
   return (
-      <header className={`w-screen ${location.pathname === '/' ? 'fixed top-0' : '' } ${scroll ? 'bg-[#F5F5F7]' : 'bg-[#F5F5F7]/80'} 
+      <header className={`w-screen ${location.pathname === '/' ? 'fixed top-0' : '' } ${scroll ? 'bg-[#F5F5F7]' : 'bg-[#F5F5F7] bg-opacity-50 backdrop-blur'} 
       ${location.pathname === '/store/yoursaves' ? 'bg-[#fff]' : '' } transition-all duration-500 z-10 
       ${inProduct()} `} >
 
@@ -106,19 +110,19 @@ function Navbar() {
                 onClick={() => setMobileMenuOpen(true)}
               >
                 <span className="sr-only">Open main menu</span>
-                <Bars3Icon className="h-6 w-6 text-white" aria-hi="true" />
+                <Bars3Icon className="h-6 w-6 text-gray-800" aria-hi="true" />
               </button>
             </div>
-            <div className='hidden xl:flex gap-x-12'>
-              {navbarElements.map((element: any) => (
-                <Link to={element.to} className={`nav`}>
-                  <HoverableElement>
-                    {element.name}
-                  </HoverableElement>
-                </Link>
-              ))}
-         
-            </div> 
+              <div className={`hidden xl:flex gap-x-12`}>
+                {navbarElements.map((element: any) => (
+                  <Link to={element.to} className={`nav`}>
+                    <HoverableElement>
+                      {element.name}
+                    </HoverableElement>
+                  </Link>
+                ))}
+          
+              </div> 
       
             <div className="flex lg:flex-1 lg:justify-end lg:gap-3">
               <div className='flex'>

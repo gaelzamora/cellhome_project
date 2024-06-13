@@ -5,18 +5,17 @@ import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline"
 type ImagesPillsProps = {
     images: Image[]
     mainImage: File | null
-    seletectedImage: File | null
+    currentImage: File | null
     setCurrentImage: any
 }
 
 const TRANSLATE_AMOUNT = 150
 
-function ImagesPills({images, mainImage, seletectedImage ,setCurrentImage}: ImagesPillsProps) {
+function ImagesPills({images, mainImage,currentImage ,setCurrentImage}: ImagesPillsProps) {
     const [translate, setTranslate] = useState(0)
     const [isLeftVisible, setIsLeftVisible] = useState(false)
     const [isRightVisible, setIsRightVisible] = useState(false)
     const containerRef = useRef<HTMLDivElement>(null)
-    const [imageSelected, setImageSelected] = useState(null)
 
     useEffect(() => {
         if(containerRef.current == null) return
@@ -35,18 +34,16 @@ function ImagesPills({images, mainImage, seletectedImage ,setCurrentImage}: Imag
     }, [translate])
 
 
-    const handleChangeImage = (image) => {
+    const handleChangeImage = (image: File | null) => {
         setCurrentImage(image)
     }
-
-    console.log(image)
 
     return (
         <div className="overflow-x-hidden relative" ref={containerRef}>
             <div className="flex whitespace-nowrap gap-3 transition-transform w-[max-content]" style={{transform: `translateX(-${translate}px)`}}>
-                <img src={`${import.meta.env.VITE_BACKEND_URL}${mainImage}`}  alt="Imagen" className={`w-14 h-14 cursor-pointer hover:opacity-40 transition-opacity delay-75 ${mainImage === seletectedImage ? 'opacity-40' : ''}`} onClick={() => handleChangeImage(mainImage) } />
-                {images.map(image => (
-                    <img src={`${import.meta.env.VITE_BACKEND_URL}${image.image}`}  alt="Imagen" className={`w-14 h-14 cursor-pointer hover:opacity-40 transition-opacity delay-75 ${image.image === seletectedImage ? 'opacity-40' : ''}`} onClick={() => handleChangeImage(mainImage) }/>
+                <img src={`${import.meta.env.VITE_BACKEND_URL}${mainImage}`}  alt="Imagen" className={`w-14 h-14 cursor-pointer hover:opacity-40 transition-opacity ${mainImage === currentImage ? 'opacity-40' : ''}`} onClick={() => handleChangeImage(mainImage) } />
+                {images.map((image: any) => (
+                    <img src={`${import.meta.env.VITE_BACKEND_URL}${image.image}`}  alt="Imagen" className={`w-14 h-14 cursor-pointer hover:opacity-40 transition-opacity ${image.image === currentImage ? 'opacity-40' : ''}`} onClick={() => handleChangeImage(image.image) }/>
                 ))}
             </div>
             {isLeftVisible && (

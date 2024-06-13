@@ -1,15 +1,21 @@
 import iconSupport from '../assets/support.jpg'
 import Slider from "../components/Slider"
 import { Link } from "react-router-dom"
-import { banners } from "../ts/data"
-
+import { adds, banners } from "../ts/data"
 import { categories } from "../ts/data"
+import {useIntersection} from '../hooks/useIntersection'
+import {motion} from 'framer-motion'
+import withScrollToTop from '../layouts/withScrollToTop'
 
 function StorePage() {
+  const [elementRef, isIntersecting] = useIntersection({
+    threshold: 0.5,
+  })
+
   return (
-    <div className="lg:px-32 px-16 overflow-hidden">
+    <div className="lg:px-32 md:px-16 px-2">
       <header className="grid-cols-[200px_minmax(900px,_1fr)_100px]">
-        <section className="py-20 relative">
+        <section className="py-20 relative transition-all duration-200 delay-200 animate-fade-down">
           <div className="lg:w-[45%]">
             <p className="text-gray-500 tracking-tighter text-[3em] font-bold"><span className="text-black">Store.</span> The best way to buy the
             products you love.</p>
@@ -31,7 +37,7 @@ function StorePage() {
           </div>
         </section>
       </header>
-      <section className=" flex gap-2 mx-auto">
+      <section className=" flex gap-2 mx-auto transition-all delay-200 duration-200 animate-fade-right" >
         {categories.map(categorie => (
           <Link to=''>
             <Link to={`${categorie.link}`} className="text-center text-gray-700 font-semibold">
@@ -41,7 +47,7 @@ function StorePage() {
           </Link>
         ))}
       </section>
-      <section className="mt-20">
+      <section className="mt-20  transition-all delay-200 duration-200 animate-fade-right">
           <p className="text-gray-500 font-bold text-[1.7em]"><span className="text-black">The latest.</span> Take a look at what's new, right now.</p>
           <div className="overflow-x-hidden">
             <div className="sticky top-0 pb-4 mt-4 ">
@@ -50,13 +56,38 @@ function StorePage() {
           </div>
       </section>
 
-      <section className="mt-16 ">
-        <p className="text-gray-500 font-bold text-[1.7em]"><span className="text-black">Help is here.</span> Whenever and however you need it.</p>
-        <div className="m-auto ">
-        </div>
-      </section>
+      <motion.div
+        ref={elementRef}
+        initial={{ y: 10, opacity: 0 }}
+        animate={isIntersecting ? { y: 0, opacity: 1 } : {}}
+        exit={{ y: -10, opacity: 0 }}
+        transition={{ duration: 2 }}
+      >
+        <p 
+            className={`mt-16 text-gray-500 font-bold text-[1.7em]`}
+        >
+            <span className={`text-black`}>
+              Loud and clear.
+            </span> Unparalleled choices for rich, high-quality sound.
+        </p>
+          
+        <section 
+          className={`grid md:grid-cols-3 auto-rows-[300px] gap-4`} 
+        >
+                {adds.map((add, i) => (
+                    <Link
+                      to={add.link} 
+                      key={i}
+                      className={`w-full h-full bg-center bg-cover rounded-md hover:scale-[1.0] delay-200 duration-200 hover:shadow-xl ${i===2 || i===3 ? 'row-span-2' : ''}`} 
+                      style={{ backgroundImage: `url(${add.image})` }}
+                    >
+                    </Link>
+                ))}
+        </section>
+      </motion.div>
+      
     </div>
   )
 }
 
-export default StorePage
+export default withScrollToTop(StorePage)

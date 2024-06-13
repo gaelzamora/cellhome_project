@@ -7,12 +7,18 @@ type State = {
     isAuth: boolean;
 }
 
+const State = {
+    isAuth: false
+}
+
+
 type Actions = {
     setToken: (access: string, refresh: string) => void;
     logout: () => void
 }
 
 export const useAuthStore = create(persist<State & Actions>(
+    
         (set) => ({
             access: '',
             refresh: '',

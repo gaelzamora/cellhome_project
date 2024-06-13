@@ -82,6 +82,16 @@ def create_variation(request):
     else:
         return Response(serializer.data, status=status.HTTP_401_UNAUTHORIZED)
     
+@api_view(['GET'])
+def search(request):
+    query = request.query_params.get('query')
+    if query is None:
+        query = ''
+
+    products = Product.objects.filter(name__icontains=query)
+    serializer = ProductSerializer(products, many=True)
+    return Response({'products': serializer.data})
+    
 @api_view(['POST'])
 def create_image(request):
     if request.user.is_staff:

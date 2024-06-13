@@ -16,6 +16,14 @@ import bgSpecialist from '../assets/card-8.jpg'
 import bgNew from '../assets/card-9.jpg'
 import bgToday from '../assets/card-10.jpg'
 
+import Add1 from '../assets/ad1.jpg'
+import Add2 from '../assets/ad2.jpg'
+import Add3 from '../assets/ad3.jpg'
+import Add4 from '../assets/ad4.jpg'
+import Add5 from '../assets/ad5.jpg'
+import Add6 from '../assets/ad6.jpg'
+import Add7 from '../assets/ad7.jpg'
+
 export const categories = [
     {name: 'Mac', image: iconMac, link: 'buy-mac'},
     {name: 'iPhone', image: iconIphone, link:'buy-iphone'},
@@ -24,6 +32,17 @@ export const categories = [
     {name: 'AirPods', image: iconAirPods, link: 'buy-airpods'},
     {name: 'Accessories', image: iconAccesories, link: 'buy-accesories'},
   ]
+
+export const adds = [
+  {name: 'Add1', image: Add1, link: ''},
+  {name: 'Add2', image: Add2, link: ''},
+  {name: 'Add7', image: Add7, link: ''},
+  {name: 'Add3', image: Add3, link: ''},
+  {name: 'Add4', image: Add4, link: ''},
+  {name: 'Add5', image: Add5, link: ''},
+  {name: 'Add6', image: Add6, link: ''},
+  ]
+
 
 
 export const banners = [

@@ -7,7 +7,7 @@ import toast from 'react-hot-toast'
 import { useAuthStore } from '../store/auth'
 import { Token } from '../Interfaces'
 import jwt_decode from 'jwt-decode'
-import {TailSpin} from 'react-loader-spinner'
+import {TailSpin} from 'react-loader-spinner' 
 
 function LoginPage() {
 

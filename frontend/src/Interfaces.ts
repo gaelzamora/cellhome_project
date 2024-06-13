@@ -42,6 +42,7 @@ export interface Variant {
     stock: number
     image: File | null
 }
+
 export interface Image {
     id: number
     id_product: number 
