@@ -51,14 +51,14 @@ def create_product(request):
             name = serializer.validated_data['name']
             slug_url = slugify(name)
 
-            if serializer.Meta.model.objects.filter(slug_url=slug_url).exists():
+            if serializer.Meta.model.objects.filter(slug_url=slug_url, slug=slug).exists():
                 return Response(serializer.data, status.HTTP_400_BAD_REQUEST)
 
-            if serializer.Meta.model.objects.filter(slug=slug).exists():
-                return Response(serializer.data, status.HTTP_400_BAD_REQUEST)
-        
             serializer.save(user=request.user, slug=slug, slug_url=slug_url)
+
+            print(serializer.data)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+        print("entre 2")
         return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
     else:
         return Response(serializer.data, status=status.HTTP_401_UNAUTHORIZED)

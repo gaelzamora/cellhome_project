@@ -5,6 +5,7 @@ import { useState } from "react"
 import {useQuery} from '@tanstack/react-query'
 import {search_products} from '../api/products.ts'
 import Variants from "../components/Variants.tsx"
+import { search_order } from "../api/orders.ts"
 
 const AdminPage = () => {
 
@@ -14,10 +15,20 @@ const AdminPage = () => {
   const {data}= useQuery({
     queryKey: ["products", search],
     queryFn: () => {
-        if(search && show==0) {
+        if(search && show==1) {
             return search_products(search)
         }
         return {products: []}
+    }
+  })
+
+  const {data: orders} = useQuery({
+    queryKey: ["orders", search_order],
+    queryFn: () => {
+        if(search && show==2) {
+            return search_products(search)
+        }
+        return {orders: []}
     }
   })
 
@@ -65,7 +76,7 @@ const AdminPage = () => {
                 </div>
                 {show === 0 && <Variants />}
                 {show === 1 && <Products results={data}/>}
-                {show === 2 && <Orders/>}
+                {show === 2 && <Orders results={orders}/>}
                 {show === 3 && <Users/>}
             </div>
         </div>

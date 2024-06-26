@@ -1,4 +1,4 @@
-import React, {useState, ChangeEvent, useEffect } from 'react'
+import React, {useState, ChangeEvent } from 'react'
 import {useMutation, useQuery, useQueryClient} from '@tanstack/react-query'
 import {get_product} from '../api/products'
 import { delete_image, post_image } from '../api/images';
@@ -59,7 +59,7 @@ function AddImagesProduct() {
         addImageMutation.mutate({
             image: image,
             id_product: data.id
-        })
+        } as Image)
     }
 
 

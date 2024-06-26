@@ -31,7 +31,11 @@ export const categories = [
     {name: 'Apple Watch', image: iconAppleWatch, link: 'buy-applewatch'},
     {name: 'AirPods', image: iconAirPods, link: 'buy-airpods'},
     {name: 'Accessories', image: iconAccesories, link: 'buy-accesories'},
-  ]
+]
+
+export const informationToCards = [
+  {title: 'Your Orders', content: 'Track, modify, or cancel an order or make a return.', link: 'See your order history'}
+]
 
 export const adds = [
   {name: 'Add1', image: Add1, link: ''},

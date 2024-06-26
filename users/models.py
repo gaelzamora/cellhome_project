@@ -37,9 +37,14 @@ class User(AbstractBaseUser, PermissionsMixin):
     avatar = models.ImageField(default="avatar.png")
     date_joined = models.DateTimeField(default=timezone.now)
     is_staff = models.BooleanField(default=False)
+    address = models.CharField(max_length=150, null=True)
+    country = models.CharField(max_length=150, null=True, blank=True)
+    postal_code = models.CharField(max_length=10, null=True, blank=True)
+    suburb = models.CharField(max_length=100, null=True, blank=True)
+    state_city = models.CharField(max_length=150, blank=True, null=True)
+    phone_number = models.CharField(max_length=100, blank=True, null=True)
     objects = CustomUserManager()
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['first_name', 'last_name']
     class Meta:
-
         ordering = ['-date_joined']

@@ -65,7 +65,6 @@ function ProductPage() {
         navigate('/accounts/login')
     }
 
-    console.log(colors)
 
     useEffect(() => {
         if(data!==undefined) setInFavorite(in_favorite(data))
@@ -77,7 +76,7 @@ function ProductPage() {
 
     return (
         <div className="relative">
-            <div className="mx-auto md:flex py-5 w-[60%] shadow-lg my-6 relative md:h-[660px]">
+            <div className="mx-auto md:flex py-5 w-[60%] shadow-lg my-6 relative md:h-[600px]">
                 <div className="flex-1"/>
                 <div className="md:absolute max-w-[500px] md:-left-14 shadow-lg md:top-10 rounded-lg bg-white">
                     {isLoading && (
@@ -137,12 +136,12 @@ function ProductPage() {
                         </div>
                     </div>
 
-                    <div className="md:h-44 md:w-1/2 my-4 overflow-y-scroll text-gray-800 md:text-start text-center">
+                    <div className="md:w-1/2 h-20 overflow-y-scroll grid grid-cols-[auto, 1fr] flex-grow-0 text-gray-800 md:text-start text-center">
                             {data.description}
                     </div>
 
                     <button 
-                        className="md:absolute bottom-0 left-0 rounded-md text-gray-100 px-14 py-5 bg-blue-700/80 uppercase hover:bg-blue-800/80 transition-all duration-75 delay-75"
+                        className="md:absolute bottom-3 left-0 rounded-md text-gray-100 px-14 py-5 bg-blue-700/80 uppercase hover:bg-blue-800/80"
                         onClick={() => handleAddCart(data)}    
                     >Add to cart</button>   
                 </section>

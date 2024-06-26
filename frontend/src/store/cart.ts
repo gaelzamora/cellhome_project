@@ -16,6 +16,7 @@ interface Actions {
     addToCart: (Item: Product) => void
     removeFromCart: (item: Product) => void
     removeAllOfProduct: (item: Product) => void
+    removeAll: () => void
 }
 
 export const useCartStore = create(persist<State & Actions>((set, get) => ({

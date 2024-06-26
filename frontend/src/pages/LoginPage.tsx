@@ -22,8 +22,8 @@ function LoginPage() {
     mutationFn: () => loginRequest(email,password),
     onSuccess: (response) => {
       setToken(response.data.access, response.data.refresh)
-      const token : string = useAuthStore.getState().access
-      const tokenDecoded : Token = jwt_decode(token)
+      const token: string = useAuthStore.getState().access
+      const tokenDecoded: Token = jwt_decode(token)
       first_name = tokenDecoded.first_name;
       toast.success(`Bienvenido/a ${first_name}`)
       navigate('/')
@@ -38,7 +38,7 @@ function LoginPage() {
     loginMutation.mutate()
   }
 
-  if(isAuth) return (<Navigate to=  '/' />)
+  if(isAuth) return (<Navigate to='/' />)
 
   return (
     <div className="flex min-h-full flex-col justify-center px-6 lg:px-8 py-20">

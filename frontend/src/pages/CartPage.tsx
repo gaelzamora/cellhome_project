@@ -2,10 +2,12 @@ import { Link, useNavigate } from "react-router-dom"
 import CellHomeLogo from '../assets/cellhome.png'
 import { useCartStore } from "../store/cart"
 import { Product } from "../Interfaces"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import {motion, AnimatePresence} from 'framer-motion'
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/outline"
-import Address from "../components/Address"
+import { OrderInformation } from "../Interfaces"
+import AddressComponent from "../components/Address"
+import withScrollToTop from "../layouts/withScrollToTop"
 
 const itemVariants = {
     hidden: {
@@ -23,8 +25,20 @@ const itemVariants = {
 }
 
 function CartPage() {
-    const [zip, setZip] = useState("")
-    const [showAddress, setShowAddress] = useState(true)
+    const [showAddress, setShowAddress] = useState(false)
+    const [zip, setZip] = useState('')
+    const [address, setAddress] = useState<OrderInformation>({
+        address_1: '',
+        address_2: '',
+        zip: zip,
+        country: '',
+        suburb: '',
+        state: '',
+        city: '',
+        email: '',
+        phone_number: ''
+    })
+
     const products_in_cart = useCartStore(state => state.cart)
     const total_price = useCartStore(state => state.totalPrice)
     const delete_item_from_cart = useCartStore(state => state.removeFromCart)
@@ -36,6 +50,15 @@ function CartPage() {
     const handleReturnStore = (url: string) => {
         navigate(url)
     }
+
+    useEffect(() => {
+        if(zip !== ""){
+            setAddress((prevAddress: any) => ({
+                ...prevAddress,
+                zip: zip
+            }))
+        }
+    }, [zip])
 
     return (
         <div className="lg:px-52 px-10">
@@ -98,9 +121,19 @@ function CartPage() {
                         <p>Shipping</p> 
                         <p>Estimated tax for: </p>
                             
-                        <div className="flex gap-2">
-                            <input type="text" className="px-5 py-2 rounded-xl border-2 border-gray-400 outline-none font-semibold" placeholder="Zip Code" value={zip} onChange={(e) => setZip(e.target.value)} />
-                            <p className={`pt-2  ${zip !== "" ? 'cursor-pointer text-blue-600 font-semibold' : 'text-gray-500'}`}>Apply</p>
+                        <div     className="flex gap-2">
+                            <input 
+                                type="text" 
+                                className="px-5 py-2 rounded-xl border-2 border-gray-400 outline-none font-semibold" 
+                                placeholder="Zip Code" 
+                                value={zip} 
+                                onChange={(e) => setZip(e.target.value)} />
+                            <p 
+                                className={`pt-2  ${zip !== "" ? 'cursor-pointer text-blue-600 font-semibold' : 'text-gray-500'}`} 
+                                onClick={() => setShowAddress(true)}
+                            >
+                                Apply
+                            </p>
 
                         </div>
                         <div className="absolute text-gray-700 font-semibold text-lg right-0 top-0">
@@ -117,10 +150,12 @@ function CartPage() {
 
                 </section>
 
-                {showAddress && <Address />}
+                {showAddress && <AddressComponent address={address} setAddress={setAddress} />}
 
                 <div className="relative mt-10 w-full h-1/4 bg-red-300">
-                    <Link to={''} className="bg-blue-600 text-neutral-100 rounded-lg px-20 py-3 absolute right-0" >Check out</Link>
+                    {!showAddress && (
+                        <Link to={''} className="bg-blue-600 text-neutral-100 rounded-lg px-20 py-3 absolute right-0" >Check out</Link>
+                    )}
                 </div>
                             
                 </>
@@ -140,4 +175,4 @@ function CartPage() {
     )
 }
 
-export default CartPage
+export default withScrollToTop(CartPage)

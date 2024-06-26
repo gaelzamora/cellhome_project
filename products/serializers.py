@@ -23,17 +23,10 @@ class ImageSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 class ProductSerializer(serializers.ModelSerializer):
-    reviews = serializers.SerializerMethodField(read_only=True)
     variants = VariantSerializer(read_only=True, many=True)
     images = ImageSerializer(read_only=True, many=True)
+    reviews = ReviewSerializer(read_only=True, many=True)
 
     class Meta:
         model = Product
-        fields = ['id', 'name', 'slug', 'description', 'price', 'rating', 'count_in_stock', 'category', 'image', 
-                  'num_reviews', 'slug_url', 'num_images' , 'variants', 'images', 'reviews']
-
-    def get_reviews(self, obj):
-        reviews = obj.reviews_set.all()
-        serializer = ReviewSerializer(reviews, many=True)
-        return serializer.data
-    
+        fields = '__all__'

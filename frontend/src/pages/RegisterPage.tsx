@@ -4,6 +4,7 @@ import { useMutation } from "@tanstack/react-query"
 import { useState } from "react"
 import toast from "react-hot-toast"
 import {useAuthStore} from '../store/auth'
+import { Loader } from "../components/Loader"
 
 function RegisterPage() {
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ function RegisterPage() {
     mutationFn: () => registerRequest(email, first_name, last_name, password),
       onSuccess: () => {
         toast.success("Registro exitoso! Hace login!")
-        navigate("/login")
+        navigate("accounts/login")
       },
       onError: () => {
         toast.error("Hubo un error, intenta devuelta")
@@ -43,7 +44,7 @@ function RegisterPage() {
       }
   }
 
-  if (registerMutation.isLoading) return <p>Loading...</p>
+  if (registerMutation.isLoading) return <Loader />
   if (isAuth) return (<Navigate to="/"/>)
 
   return (

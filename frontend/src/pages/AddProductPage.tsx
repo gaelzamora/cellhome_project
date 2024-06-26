@@ -5,6 +5,8 @@ import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import {Link} from 'react-router-dom'
 import { Loader } from '../components/Loader';
+import { Product } from '../Interfaces';
+import { categories } from '../ts/data';
 
 function AddProductPage() {
     const [name, setName] = useState<string>('');
@@ -35,22 +37,18 @@ function AddProductPage() {
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        addProdMutation.mutate({ 
-            name: name, 
-            count_in_stock: countInStock, 
-            category: category, 
-            description: description, 
-            price: price, 
-            image: image 
-        });
+        addProdMutation.mutate({
+            name: name,
+            count_in_stock: countInStock,
+            category: category,
+            description: description,
+            price: price,
+            image: image,
+        } as Product);
     };
 
     const handleNameChange= (event: ChangeEvent<HTMLInputElement>) => {
         setName(event.target.value);
-    };
-
-    const handleCategoryChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setCategory(event.target.value);
     };
 
     const handleDescriptionChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -189,15 +187,21 @@ function AddProductPage() {
                                 >
                                     Category
                                 </label>
-                                <input
+
+                                <select 
+                                    name="categories" 
+                                    id="" 
                                     value={category}
-                                    onChange={handleCategoryChange}
-                                    type="text"
-                                    name="category"
-                                    id="category"
-                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                                    placeholder="Category"
-                                />
+                                    onChange={(e) => setCategory(e.target.value)}
+                                    className='px-2 py-3 w-[100%] rounded-md'>
+                                    <option selected>Select a category</option>
+                                    {categories.map((category) => (
+                                        <option>
+                                            {category.name}
+                                        </option>
+                                    ))}
+                                </select>
+
                             </div>
 
                             <div className="sm:col-span-2">

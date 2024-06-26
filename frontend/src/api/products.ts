@@ -53,7 +53,6 @@ export const post_product = async (data: Product) => {
     if(data.image){
         formData.append("image", data.image)
     }
-    console.log(formData)
     await authAxios.post(
         '/products/post/',
         formData

@@ -17,11 +17,14 @@ export interface Product {
 }
 
 export interface Token {
-    exp: number
-    is_staff: boolean
+    user_id: number;
+    exp: number;
+    is_staff: boolean;
+    email: string;
+    name: string;
     first_name: string
-    last_name: string
-    avatar: string
+    last_name: string;
+    avatar: File | null;
 }
 
 export interface Item {
@@ -40,11 +43,35 @@ export interface Variant {
     variation_category: string
     sku: number
     stock: number
-    image: File | null
+    image: File | null  
 }
 
 export interface Image {
     id: number
     id_product: number 
     image: File | null
+}
+
+export interface Order {
+    total_price: number,
+    address_1: string
+    suburb: string
+    city_state: string
+    postal_code: string
+    country: string
+    order_items: Product[]
+}   
+
+export interface User {
+    id?: number;
+    avatar: File | null;
+    email: string;
+    first_name: string;
+    last_name: string;
+    address: string
+    postal_code: string
+    country: string
+    suburb: string
+    state_city: string
+    phone_number: string
 }

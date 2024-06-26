@@ -23,7 +23,7 @@ class Image(models.Model):
     image = models.ImageField(default='placeholder.png')
 
 class Reviews(models.Model):
-    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True, related_name='reviews')
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     rating = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     description = models.CharField(max_length=100, blank=True)

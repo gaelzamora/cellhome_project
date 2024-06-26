@@ -6,7 +6,7 @@ import {Link} from 'react-router-dom'
 import { Loader } from '../components/Loader';
 import { post_variant } from '../api/variants';
 import { get_products } from '../api/products';
-import { Product } from '../Interfaces';
+import { Product, Variant } from '../Interfaces';
 
 
 function AddVariationPage() {
@@ -53,13 +53,13 @@ function AddVariationPage() {
         event.preventDefault();
         if(productVar !== 0 && variationCat !== "") {
             AddVariationMut.mutate({
-            name: name,
+                name: name,
                 variation_category: variationCat,
                 sku: sku,
                 stock: stock,
                 image: image,
                 id_product: productVar
-            });
+            } as Variant);
         } else {
             toast.error("Debes seleccionar una categoria y producto")
         }

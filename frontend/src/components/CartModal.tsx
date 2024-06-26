@@ -71,7 +71,8 @@ function CartModal({ isOpen, setOpen }: modalProps) {
           initial={false}
           animate="visible"
           exit="hidden"
-        >
+          >
+          
           <motion.div 
             className="bg-[#ffff] p-8 rounded-lg shadow-lg w-2/6 h-full"
             variants={modalVariants}
@@ -109,7 +110,25 @@ function CartModal({ isOpen, setOpen }: modalProps) {
                     </motion.div>
                 ))}
               </AnimatePresence>
+              {
+              !items_cart.length && (
+                <motion.div
+                  className='text-3xl text-gray-900 font-semibold text-center w-full mt-44'
+                  initial={{opacity: 0}}
+                  animate={{opacity: 1}}
+                  transition={{
+                    duration: 2, delay: 1
+                  }}
+                  exit={{opacity: 0}}
+                >
+                  Your bag is empy
+                </motion.div>
+              )
+            }
             </motion.div>
+
+
+
 
             <motion.button className='w-full py-4 px-5 hover:bg-blue-900/80 transition-colors duration-100 bg-blue-800/80 text-neutral-300 font-bold uppercase rounded-md'>
               To buy  
